@@ -1,0 +1,21 @@
+[
+{
+  "modid": "SS",
+  "name": "Sprial Security",
+  "description": "Secure Your Stuff With Complicated Security.",
+  "version": "@VERSION@",
+  "url": "http://www.test.com.au",
+  "updateUrl": "",
+  "authorList": [
+    "Sprial404",
+    "Craftable11"
+  ],
+  "credits": "By Sprial404 with help from Craftable11.",
+  "logoFile": "",
+  "screenshots": [
+  ],
+  "parent":"",
+  "dependencies": [
+  ]
+}
+]
