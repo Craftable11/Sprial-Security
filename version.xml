@@ -3,4 +3,4 @@
 <properties version="1.0">
   	<comment>Version lookup for Sprial Security. Format is "Current Version Number|URL to update page"</comment>
 	<entry key="Minecraft 1.5.2">pre1a|http://goo.gl/test</entry>
-</properites>
+</properties>
