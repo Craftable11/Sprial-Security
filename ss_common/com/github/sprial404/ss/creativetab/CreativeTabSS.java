@@ -1,7 +1,5 @@
 package com.github.sprial404.ss.creativetab;
 
-import com.github.sprial404.ss.lib.ItemIds;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.creativetab.CreativeTabs;
@@ -18,6 +16,6 @@ public class CreativeTabSS extends CreativeTabs {
      * the itemID for the item to be displayed on the tab
      */
     public int getTabIconItemIndex() {
-        return ItemIds.PLASMA_INGOT;
+        return 331;
     }
 }
