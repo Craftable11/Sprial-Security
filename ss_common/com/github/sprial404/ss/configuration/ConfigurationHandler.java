@@ -7,7 +7,10 @@ import java.util.logging.Level;
 
 import net.minecraftforge.common.Configuration;
 
+import com.github.sprial404.ss.lib.BlockIds;
+import com.github.sprial404.ss.lib.ItemIds;
 import com.github.sprial404.ss.lib.Reference;
+import com.github.sprial404.ss.lib.Strings;
 
 import cpw.mods.fml.common.FMLLog;
 
@@ -36,16 +39,20 @@ public class ConfigurationHandler {
             ConfigurationSettings.ENABLE_SOUNDS = configuration.get(CATEGORY_AUDIO, ConfigurationSettings.ENABLE_SOUNDS_CONFIGNAME, ConfigurationSettings.ENABLE_SOUNDS_DEFAULT).getString();
             
             /* Block configs */
+            BlockIds.PLASMA_ORE = configuration.getBlock(Strings.PLASMA_ORE_NAME, BlockIds.PLASMA_ORE_DEFAULT).getInt(BlockIds.PLASMA_ORE_DEFAULT);
+            BlockIds.PLASMA_BLOCK = configuration.getBlock(Strings.PLASMA_BLOCK_NAME, BlockIds.PLASMA_BLOCK_DEFAULT).getInt(BlockIds.PLASMA_BLOCK_DEFAULT);
             
             /* Block property configs */
             configuration.addCustomCategoryComment(CATEGORY_BLOCK_PROPERTIES, "Custom block properties");
             
             /* Item configs */
+            ItemIds.PLASMA_INGOT = configuration.getItem(Strings.PLASMA_INGOT_NAME, ItemIds.PLASMA_INGOT_DEFAULT).getInt(ItemIds.PLASMA_INGOT_DEFAULT);
             
             /* KeyBinding configs */
             configuration.addCustomCategoryComment(CATEGORY_KEYBIND, "Keybindings for Sprial Security. See http://www.minecraftwiki.net/wiki/Key_codes for mapping of key codes to keyboard keys");
         } catch (Exception e) {
             FMLLog.log(Level.SEVERE, e, Reference.MOD_ID + " has had a problem loading its configuration");
+            
         } finally {
             configuration.save();
         }
