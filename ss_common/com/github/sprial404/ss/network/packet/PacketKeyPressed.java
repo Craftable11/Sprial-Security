@@ -7,6 +7,7 @@ import java.io.IOException;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.INetworkManager;
 
+import com.github.sprial404.ss.item.IKeyBound;
 import com.github.sprial404.ss.network.PacketTypeHandler;
 
 import cpw.mods.fml.common.network.Player;
