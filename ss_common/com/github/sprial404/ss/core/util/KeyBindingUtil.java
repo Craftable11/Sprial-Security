@@ -26,8 +26,8 @@ public class KeyBindingUtil {
 
         isRepeatingList.add(value);
     }
-    public static KeyBinding[] gatherKeyBindings() {
 
+    public static KeyBinding[] gatherKeyBindings() {
         return keyBindingsList.toArray(new KeyBinding[keyBindingsList.size()]);
     }
 
@@ -43,7 +43,6 @@ public class KeyBindingUtil {
 
     // TODO Still not ideal, won't work for every case. Specifically, make it context sensitive
     public static boolean isClientSided(String keybinding) {
-
         if (keybinding.equalsIgnoreCase(ConfigurationSettings.KEYBINDING_TOGGLE))
             return true;
         else
