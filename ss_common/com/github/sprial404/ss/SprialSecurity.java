@@ -16,6 +16,7 @@ import com.github.sprial404.ss.creativetab.CreativeTabSS;
 import com.github.sprial404.ss.item.ModItems;
 import com.github.sprial404.ss.lib.Reference;
 import com.github.sprial404.ss.lib.Strings;
+import com.github.sprial404.ss.network.PacketHandler;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.FingerprintWarning;
@@ -30,12 +31,13 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 
 @Mod(modid = Reference.MOD_ID, name= Reference.MOD_NAME, version = Reference.VERSION_NUMBER, dependencies = Reference.DEPENDENCIES, certificateFingerprint = Reference.FINGERPRINT)
-// @NetworkMod(channels = { Reference.CHANNEL_NAME }, clientSideRequired = true, serverSideRequired = false)
+@NetworkMod(channels = { Reference.CHANNEL_NAME }, clientSideRequired = true, serverSideRequired = false, packetHandler = PacketHandler.class)
 public class SprialSecurity {
 
     @Instance(Reference.MOD_ID)
@@ -84,11 +86,11 @@ public class SprialSecurity {
         // Register the Sound Handler (Client only)
         proxy.registerSoundHandler();
         
-        // Initalize mod blocks
-        ModBlocks.init();
-        
         // Initialize mod items
         ModItems.init();
+        
+        // Initalize mod blocks
+        ModBlocks.init();
     }
     
     @Init
