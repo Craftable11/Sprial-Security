@@ -25,6 +25,14 @@ public class Strings {
     public static final String NBT_TE_DIRECTION_KEY = "teDirection";
     public static final String NBT_TE_CUSTOM_NAME = "CustomName";
     
+    /* Block name constants */
+    public static final String PLASMA_ORE_NAME = "orePlasma";
+    public static final String PLASMA_BLOCK_NAME = "blockPlasma";
+    
+    /* Item name constants */
+    public static final String PLASMA_INGOT_NAME = "ingotPlasma";
+    public static final String PLASMA_CELL_NAME = "cellPlasma";
+    
     /* TileEntity name constants */
     
     /* Container related constants */
