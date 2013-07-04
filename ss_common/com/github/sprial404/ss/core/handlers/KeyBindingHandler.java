@@ -2,15 +2,16 @@ package com.github.sprial404.ss.core.handlers;
 
 import java.util.EnumSet;
 
-import com.github.sprial404.ss.core.util.KeyBindingUtil;
-import com.github.sprial404.ss.lib.Reference;
-import com.github.sprial404.ss.network.PacketTypeHandler;
-import com.github.sprial404.ss.network.packet.IKeyBound;
-import com.github.sprial404.ss.network.packet.PacketKeyPressed;
-
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+
+import com.github.sprial404.ss.core.util.KeyBindingUtil;
+import com.github.sprial404.ss.item.IKeyBound;
+import com.github.sprial404.ss.lib.Reference;
+import com.github.sprial404.ss.network.PacketTypeHandler;
+import com.github.sprial404.ss.network.packet.PacketKeyPressed;
+
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.KeyBindingRegistry;
 import cpw.mods.fml.common.TickType;
