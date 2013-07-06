@@ -1,10 +1,12 @@
-package com.github.sprial404.ss.core.util;
+package com.github.sprial404.ss.nbt;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
 public class NBTHelper {
 
+    // TODO Write a method to encode a given stack (ItemStack | OreStack | EnergyStack) as a NBTTagList
+    
     /**
      * Initializes the NBT Tag Compound for the given ItemStack if it is null
      * 
@@ -67,7 +69,6 @@ public class NBTHelper {
 
     // byte
     public static byte getByte(ItemStack itemStack, String keyName) {
-
         initNBTTagCompound(itemStack);
 
         if (!itemStack.stackTagCompound.hasKey(keyName)) {
@@ -78,7 +79,6 @@ public class NBTHelper {
     }
 
     public static void setByte(ItemStack itemStack, String keyName, byte keyValue) {
-
         initNBTTagCompound(itemStack);
 
         itemStack.stackTagCompound.setByte(keyName, keyValue);
@@ -86,7 +86,6 @@ public class NBTHelper {
 
     // short
     public static short getShort(ItemStack itemStack, String keyName) {
-
         initNBTTagCompound(itemStack);
 
         if (!itemStack.stackTagCompound.hasKey(keyName)) {
@@ -97,7 +96,6 @@ public class NBTHelper {
     }
 
     public static void setShort(ItemStack itemStack, String keyName, short keyValue) {
-
         initNBTTagCompound(itemStack);
 
         itemStack.stackTagCompound.setShort(keyName, keyValue);
@@ -105,7 +103,6 @@ public class NBTHelper {
 
     // int
     public static int getInt(ItemStack itemStack, String keyName) {
-
         initNBTTagCompound(itemStack);
 
         if (!itemStack.stackTagCompound.hasKey(keyName)) {
@@ -116,7 +113,6 @@ public class NBTHelper {
     }
 
     public static void setInteger(ItemStack itemStack, String keyName, int keyValue) {
-
         initNBTTagCompound(itemStack);
 
         itemStack.stackTagCompound.setInteger(keyName, keyValue);
@@ -124,7 +120,6 @@ public class NBTHelper {
 
     // long
     public static long getLong(ItemStack itemStack, String keyName) {
-
         initNBTTagCompound(itemStack);
 
         if (!itemStack.stackTagCompound.hasKey(keyName)) {
@@ -135,7 +130,6 @@ public class NBTHelper {
     }
 
     public static void setLong(ItemStack itemStack, String keyName, long keyValue) {
-
         initNBTTagCompound(itemStack);
 
         itemStack.stackTagCompound.setLong(keyName, keyValue);
