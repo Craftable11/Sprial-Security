@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
+import com.github.sprial404.ss.core.util.EnergyStack;
 import com.github.sprial404.ss.core.util.ItemUtil;
-import com.github.sprial404.ss.core.util.LogHelper;
 import com.github.sprial404.ss.core.util.OreStack;
 import com.github.sprial404.ss.core.util.RecipeHelper;
 import com.github.sprial404.ss.item.CustomWrappedStack;
@@ -18,62 +20,181 @@ import com.google.common.collect.Multimap;
 public class RecipeRegistry {
 
     private static RecipeRegistry recipeRegistry = null;
-    
+
     private Multimap<CustomWrappedStack, List<CustomWrappedStack>> recipeMap;
-    
-    private List<CustomWrappedStack> wildCardList;
-    
+    private ArrayList<CustomWrappedStack> discoveredStacks;
+    private ArrayList<CustomWrappedStack> recipelessStacks;
+    private List<CustomWrappedStack> wildCardStacks;
+
     private RecipeRegistry() {
+
         recipeMap = HashMultimap.create();
-        wildCardList = RecipeHelper.populateWildCards();
+        wildCardStacks = RecipeHelper.populateWildCards();
+        discoveredStacks = new ArrayList<CustomWrappedStack>();
+        recipelessStacks = new ArrayList<CustomWrappedStack>();
     }
-    
+
     public static RecipeRegistry getInstance() {
-        if (recipeRegistry == null)
+
+        if (recipeRegistry == null) {
             recipeRegistry = new RecipeRegistry();
+            recipeRegistry.init();
+        }
+
         return recipeRegistry;
     }
     
+    private void init() {
+        
+        Multimap<CustomWrappedStack, List<CustomWrappedStack>> recipes = HashMultimap.create();
+
+        // Add potion recipes
+        recipes.putAll(RecipesPotions.getPotionRecipes());
+        
+        // Add smelting recipes in the vanilla smelting manager
+        recipes.putAll(RecipesSmelting.getSmeltingRecipes());
+
+        // Add recipes in the vanilla crafting manager
+        recipes.putAll(RecipesVanilla.getVanillaRecipes());
+
+        // Add recipes gathered via IMC
+        // TODO Gather IMC recipes
+
+        // Populate the discovered stacks list with all stacks that we are involved in a recipe we are aware of 
+        discoverStacks(recipes);
+        
+        // Add items that have no recipe, using the list of discovered stacks to determine if it's in a recipe or not
+        for (CustomWrappedStack stack : recipelessStacks) {
+            recipes.put(stack, new ArrayList<CustomWrappedStack>());
+        }
+
+        // Iterate through every recipe in the map, and add them to the registry
+        Set<CustomWrappedStack> recipeKeySet = recipes.keySet();
+        Iterator<CustomWrappedStack> recipeKeySetIterator = recipeKeySet.iterator();
+        CustomWrappedStack recipeOutput = null;
+
+        while (recipeKeySetIterator.hasNext()) {
+            recipeOutput = recipeKeySetIterator.next();
+            
+            for (List<CustomWrappedStack> recipeInputs : recipes.get(recipeOutput)) {
+                addRecipe(recipeOutput, recipeInputs);
+            }
+        }
+    }
+    
+    private void discoverStacks(Multimap<CustomWrappedStack, List<CustomWrappedStack>> recipes) {
+        
+        Set<CustomWrappedStack> recipeKeySet = recipes.keySet();
+        Iterator<CustomWrappedStack> recipeKeySetIterator = recipeKeySet.iterator();
+        CustomWrappedStack recipeOutput = null;
+        
+        // Discover all stacks involved in the recipes we know about
+        while (recipeKeySetIterator.hasNext()) {
+            recipeOutput = recipeKeySetIterator.next();
+            
+            if (!discoveredStacks.contains(new CustomWrappedStack(recipeOutput.getWrappedStack()))) {
+                discoveredStacks.add(new CustomWrappedStack(recipeOutput.getWrappedStack()));
+            }
+            
+            for (List<CustomWrappedStack> recipeInputs : recipes.get(recipeOutput)) {
+                for (CustomWrappedStack recipeInput : recipeInputs) {
+                    
+                    CustomWrappedStack unwrappedRecipeInput = new CustomWrappedStack(recipeInput.getWrappedStack());
+                    
+                    if (!discoveredStacks.contains(unwrappedRecipeInput)) {
+                        discoveredStacks.add(unwrappedRecipeInput);
+                    }
+                }
+            }
+        }
+
+        // Discover all stacks from the vanilla Items array
+        ArrayList<ItemStack> subItemList = new ArrayList<ItemStack>();
+        
+        for (int i = 0; i < Item.itemsList.length; i++) {
+            if (Item.itemsList[i] != null) {
+                if (Item.itemsList[i].getHasSubtypes()) {
+
+                    subItemList.clear();
+                    Item.itemsList[i].getSubItems(i, Item.itemsList[i].getCreativeTab(), subItemList);
+
+                    for (ItemStack itemStack : subItemList) {
+                        if (itemStack != null) {
+
+                            CustomWrappedStack customWrappedStack = new CustomWrappedStack(itemStack);
+
+                            if (!discoveredStacks.contains(customWrappedStack)) {
+                                discoveredStacks.add(customWrappedStack);
+                            }
+                        }
+                    }
+                }
+                else {
+                    
+                    CustomWrappedStack customWrappedStack = new CustomWrappedStack(new ItemStack(Item.itemsList[i]));
+                    
+                    if (!discoveredStacks.contains(customWrappedStack)) {
+                        discoveredStacks.add(customWrappedStack);
+                    }
+                }
+            }
+        }
+        
+        /*
+         * For every stack we have discovered, check to see if we know a recipe for it. If we don't
+         * and we haven't already added it to the recipeless stack list, add it to the recipeless stack
+         * list
+         */
+        for (CustomWrappedStack discoveredStack : discoveredStacks) {
+            
+            if (recipes.get(discoveredStack).size() == 0 && !recipelessStacks.contains(discoveredStack)) {
+                recipelessStacks.add(discoveredStack);
+            }
+        }
+    }
+
     public boolean hasRecipe(CustomWrappedStack customWrappedStack) {
+
         return recipeMap.containsKey(customWrappedStack);
     }
 
     public boolean hasRecipe(ItemStack itemStack) {
+
         return hasRecipe(new CustomWrappedStack(itemStack));
     }
 
-    public int countRecipes(CustomWrappedStack customWrappedStack) {
+    public int countRecipesFor(CustomWrappedStack customWrappedStack) {
+
         Collection<List<CustomWrappedStack>> keys = recipeMap.get(customWrappedStack);
 
         return keys.size();
     }
 
-    public int countRecipes(ItemStack itemStack) {
-        return countRecipes(new CustomWrappedStack(itemStack));
+    public int countRecipesFor(ItemStack itemStack) {
+
+        return countRecipesFor(new CustomWrappedStack(itemStack));
     }
 
-    public Collection<List<CustomWrappedStack>> getRecipes(CustomWrappedStack customWrappedStack) {
+    public Collection<List<CustomWrappedStack>> getRecipesFor(CustomWrappedStack customWrappedStack) {
+
         return recipeMap.get(customWrappedStack);
     }
 
-    public Collection<List<CustomWrappedStack>> getRecipes(ItemStack itemStack) {
-        return getRecipes(new CustomWrappedStack(itemStack));
+    public Collection<List<CustomWrappedStack>> getRecipesFor(ItemStack itemStack) {
+
+        return getRecipesFor(new CustomWrappedStack(itemStack));
     }
 
     /*
-     * Item:
-     *  Item (Output) <- { ... }
-     * 
+     * Item: Item (Output) <- { ... }
      */
     public void addRecipe(CustomWrappedStack recipeOutput, List<?> recipeInputs) {
+
         ArrayList<CustomWrappedStack> collatedStacks = new ArrayList<CustomWrappedStack>();
 
         CustomWrappedStack wrappedInputStack = null;
         boolean found = false;
 
-        LogHelper.debug("Recipe Output: " + recipeOutput.toString());
-        LogHelper.debug("Recipe Inputs: " + recipeInputs.toString());
-        
         /**
          * For every input in the input list, check to see if we have discovered
          * it already - If we have, add it to the one we already have - If we
@@ -87,9 +208,9 @@ public class RecipeRegistry {
             else if (object instanceof CustomWrappedStack) {
                 wrappedInputStack = (CustomWrappedStack) object;
             }
-            
-            if (wildCardList.contains(wrappedInputStack)) {
-                Iterator<CustomWrappedStack> wildIter = wildCardList.iterator();
+
+            if (wildCardStacks.contains(wrappedInputStack)) {
+                Iterator<CustomWrappedStack> wildIter = wildCardStacks.iterator();
                 while (wildIter.hasNext()) {
                     CustomWrappedStack wildCard = wildIter.next();
                     if (wildCard.equals(wrappedInputStack)) {
@@ -98,13 +219,13 @@ public class RecipeRegistry {
                     }
                 }
             }
-            
+
             if (collatedStacks.size() == 0) {
                 collatedStacks.add(wrappedInputStack);
             }
             else {
                 found = false;
-                
+
                 for (int i = 0; i < collatedStacks.size(); i++) {
                     if (collatedStacks.get(i) != null) {
                         if (wrappedInputStack.getWrappedStack() instanceof ItemStack && collatedStacks.get(i).getWrappedStack() instanceof ItemStack) {
@@ -119,18 +240,65 @@ public class RecipeRegistry {
                                 found = true;
                             }
                         }
+                        else if (wrappedInputStack.getWrappedStack() instanceof EnergyStack && collatedStacks.get(i).getWrappedStack() instanceof EnergyStack) {
+                            if (((EnergyStack) wrappedInputStack.getWrappedStack()).energyName.equalsIgnoreCase(((EnergyStack) collatedStacks.get(i).getWrappedStack()).energyName)) {
+                                collatedStacks.get(i).setStackSize(collatedStacks.get(i).getStackSize() + wrappedInputStack.getStackSize());
+                                found = true;
+                            }
+                        }
                     }
                 }
-                
+
                 if (!found) {
                     collatedStacks.add(wrappedInputStack);
                 }
             }
         }
-        
-        // TODO Once we have a collated set of inputs for the given output, check to see if we have it registered already and if not add it to the recipeMap
-        for (CustomWrappedStack collatedStack : collatedStacks) {
-            LogHelper.debug("Collated Recipe Input: " + collatedStack);
+
+        if (!recipeMap.containsEntry(recipeOutput, collatedStacks)) {
+            recipeMap.put(recipeOutput, collatedStacks);
         }
+    }
+
+    public int size() {
+
+        return recipeMap.size();
+    }
+
+    @Override
+    public String toString() {
+
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (CustomWrappedStack key : recipeMap.keySet()) {
+
+            Collection<List<CustomWrappedStack>> recipeMappings = recipeMap.get(key);
+
+            for (List<CustomWrappedStack> recipeList : recipeMappings) {
+                stringBuilder.append(String.format("Recipe Output: %s, Recipe Input: %s\n", key.toString(), recipeList.toString()));
+            }
+        }
+
+        return stringBuilder.toString();
+    }
+    
+    public Multimap<CustomWrappedStack, List<CustomWrappedStack>> getRecipeMappings() {
+        
+        return recipeMap;
+    }
+    
+    public List<CustomWrappedStack> getDiscoveredStacks() {
+        
+        return discoveredStacks;
+    }
+    
+    public List<CustomWrappedStack> getRecipelessStacks() {
+        
+        return recipelessStacks;
+    }
+    
+    public List<CustomWrappedStack> getWildCardStacks() {
+        
+        return wildCardStacks;
     }
 }
