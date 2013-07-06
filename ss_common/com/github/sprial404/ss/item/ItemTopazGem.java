@@ -3,13 +3,14 @@ package com.github.sprial404.ss.item;
 import com.github.sprial404.ss.SprialSecurity;
 import com.github.sprial404.ss.lib.Strings;
 
-public class ItemPlasmaIngot extends ItemSS {
+public class ItemTopazGem extends ItemSS {
 
-    public ItemPlasmaIngot(int id) {
+    public ItemTopazGem(int id) {
         super(id);
-        this.setUnlocalizedName(Strings.PLASMA_INGOT_NAME);
+        this.setUnlocalizedName(Strings.TOPAZ_GEM);
         this.setCreativeTab(SprialSecurity.tabsSS);
-        maxStackSize = 64;
+        this.maxStackSize = 64;
     }
 
+    
 }

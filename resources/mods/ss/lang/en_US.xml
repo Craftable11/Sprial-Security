@@ -2,10 +2,10 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties version="1.0">
 	<comment>English (en_US) Localization File</comment>
-	<entry key="tile.blockPlasma.name">Block of Plasma</entry>
-	<entry key="tile.orePlasma.name">Plasma Ore</entry>
-	<entry key="item.cellPlasma.name">Plasma Cell</entry>
-	<entry key="item.ingotPlasma.name">Plasma Ingot</entry>
+	<entry key="item.gemTopaz.name">Topaz Gem</entry>
+	<entry key="tile.blockTopaz.name">Block of Topaz</entry>
+	<entry key="tile.oreTopaz.name">Topaz Ore</entry>
+	<entry key="tile.structureMachine.name">Machine Structure</entry>
 	<entry key="itemGroup.SS">Sprial Security</entry>
 	<entry key="version.init_log_message">Initializing remote version check against remote version authority, located at</entry>
 	<entry key="version.uninitialized">Remote version check failed to initialize properly</entry>

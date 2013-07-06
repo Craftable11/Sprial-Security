@@ -1,23 +1,31 @@
 package com.github.sprial404.ss.item;
 
-import com.github.sprial404.ss.core.util.ItemUtil;
-import com.github.sprial404.ss.core.util.OreStack;
+import java.util.ArrayList;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
+
+import com.github.sprial404.ss.core.util.EnergyStack;
+import com.github.sprial404.ss.core.util.ItemUtil;
+import com.github.sprial404.ss.core.util.OreStack;
+import com.github.sprial404.ss.lib.Reference;
 
 public class CustomWrappedStack {
 
     private int stackSize;
     private ItemStack itemStack;
     private OreStack oreStack;
+    private EnergyStack energyStack;
 
     /**
-     * Creates a new CustomWrappedStack object which wraps the given input. Valid inputs would be ItemStacks or OreStacks.
-     * If something other than an ItemStack or an OreStack is used as input, nothing is wrapped and the size of the wrapped
-     * stack is set to -1 to indicate an invalid wrapped stack.
+     * Creates a new CustomWrappedStack object which wraps the given input.
+     * Valid inputs would be ItemStacks or OreStacks. If something other than an
+     * ItemStack or an OreStack is used as input, nothing is wrapped and the
+     * size of the wrapped stack is set to -1 to indicate an invalid wrapped
+     * stack.
      * 
-     * @param object The newly created wrapped stack object
+     * @param object
+     *            The newly created wrapped stack object
      */
     public CustomWrappedStack(Object object) {
 
@@ -27,35 +35,73 @@ public class CustomWrappedStack {
         if (object instanceof ItemStack) {
 
             ItemStack itemStack = (ItemStack) object;
-            
+
             /*
-             * If the ItemStack does not exist in the OreDictionary, wrap it as an ItemStack
+             * If the ItemStack does not exist in the OreDictionary, wrap it as
+             * an ItemStack
              */
-            if (OreDictionary.getOreID(itemStack) == -1) {
-                this.itemStack = itemStack;
+            if (OreDictionary.getOreID(itemStack) == Reference.ORE_DICTIONARY_NOT_FOUND) {
+                this.itemStack = itemStack.copy();
                 oreStack = null;
-                stackSize = itemStack.stackSize;
+                energyStack = null;
+                stackSize = this.itemStack.stackSize;
                 this.itemStack.stackSize = 1;
             }
             /*
-             * Else the ItemStack exists in the OreDictionary, so wrap it as an OreStack instead of an ItemStack
+             * Else the ItemStack exists in the OreDictionary, so wrap it as an
+             * OreStack instead of an ItemStack
              */
             else {
                 this.itemStack = null;
                 oreStack = new OreStack(itemStack);
+                energyStack = null;
                 stackSize = oreStack.stackSize;
                 oreStack.stackSize = 1;
             }
         }
         /*
-         * We are given an OreStack to wrap
+         * Or we are given an OreStack to wrap
          */
         else if (object instanceof OreStack) {
 
             itemStack = null;
             oreStack = (OreStack) object;
+            energyStack = null;
             stackSize = oreStack.stackSize;
             oreStack.stackSize = 1;
+        }
+        else if (object instanceof ArrayList) {
+
+            itemStack = null;
+
+            ArrayList<?> objectList = (ArrayList<?>) object;
+
+            if (!objectList.isEmpty()) {
+                for (Object listElement : objectList) {
+                    if (listElement instanceof ItemStack) {
+                        ItemStack stack = (ItemStack) listElement;
+
+                        if (OreDictionary.getOreID(stack) != Reference.ORE_DICTIONARY_NOT_FOUND) {
+                            oreStack = new OreStack(stack);
+                            stackSize = oreStack.stackSize;
+                            oreStack.stackSize = 1;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            energyStack = null;
+        }
+        /*
+         * Or we are given an EnergyStack to wrap
+         */
+        else if (object instanceof EnergyStack) {
+            itemStack = null;
+            oreStack = null;
+            energyStack = (EnergyStack) object;
+            stackSize = energyStack.stackSize;
+            energyStack.stackSize = 1;
         }
         /*
          * Else, we are given something we cannot wrap
@@ -66,7 +112,8 @@ public class CustomWrappedStack {
     }
 
     /**
-     * Returns the stack size of the wrapped stack, or -1 if we wrapped an invalid input
+     * Returns the stack size of the wrapped stack, or -1 if we wrapped an
+     * invalid input
      * 
      * @return The size of the wrapped stack
      */
@@ -78,7 +125,8 @@ public class CustomWrappedStack {
     /**
      * Sets the size of the wrapped stack
      * 
-     * @param stackSize The new size of the wrapped stack
+     * @param stackSize
+     *            The new size of the wrapped stack
      */
     public void setStackSize(int stackSize) {
 
@@ -88,7 +136,9 @@ public class CustomWrappedStack {
     /**
      * Returns the wrapped stack
      * 
-     * @return The wrapped ItemStack or OreStack, or null if something other than an ItemStack or OreStack was used to create this object
+     * @return The wrapped ItemStack, OreStack, or EnergyStack, or null if
+     *         something other than an ItemStack, OreStack, or EnergyStack was
+     *         used to create this object
      */
     public Object getWrappedStack() {
 
@@ -98,7 +148,10 @@ public class CustomWrappedStack {
         else if (oreStack != null) {
             return oreStack;
         }
-        
+        else if (energyStack != null) {
+            return energyStack;
+        }
+
         return null;
     }
 
@@ -115,7 +168,7 @@ public class CustomWrappedStack {
                 return ItemUtil.compare(itemStack, customWrappedStack.itemStack) && stackSize == customWrappedStack.itemStack.stackSize;
             else if (customWrappedStack.oreStack != null) {
                 for (ItemStack oreDictItemStack : OreDictionary.getOres(customWrappedStack.oreStack.oreName)) {
-                    if (ItemUtil.compare(itemStack, oreDictItemStack) && stackSize == oreDictItemStack.stackSize)
+                    if (ItemUtil.compare(itemStack, oreDictItemStack) && stackSize == customWrappedStack.stackSize)
                         return true;
                 }
             }
@@ -123,12 +176,17 @@ public class CustomWrappedStack {
         else if (oreStack != null) {
             if (customWrappedStack.itemStack != null) {
                 for (ItemStack oreDictItemStack : OreDictionary.getOres(oreStack.oreName)) {
-                    if (ItemUtil.compare(customWrappedStack.itemStack, oreDictItemStack) && stackSize == oreDictItemStack.stackSize)
+                    if (ItemUtil.compare(customWrappedStack.itemStack, oreDictItemStack) && stackSize == customWrappedStack.stackSize)
                         return true;
                 }
             }
             else if (customWrappedStack.oreStack != null)
-                return oreStack.equals(customWrappedStack.oreStack) && stackSize == oreStack.stackSize;
+                return oreStack.oreName.equalsIgnoreCase(customWrappedStack.oreStack.oreName) && stackSize == customWrappedStack.stackSize;
+        }
+        else if (energyStack != null) {
+            if (customWrappedStack.energyStack != null) {
+                return energyStack.energyName.equalsIgnoreCase(customWrappedStack.energyStack.energyName) && stackSize == customWrappedStack.stackSize;
+            }
         }
 
         return false;
@@ -137,24 +195,19 @@ public class CustomWrappedStack {
     @Override
     public String toString() {
 
+        StringBuilder stringBuilder = new StringBuilder();
+
         if (itemStack != null) {
-            StringBuilder stringBuilder = new StringBuilder();
-
-            stringBuilder.append(String.format("itemID: %d, metaData: %d, stackSize: %d, ", itemStack.itemID, itemStack.getItemDamage(), stackSize));
-            
-            if (itemStack.hasTagCompound()) {
-                stringBuilder.append(String.format("nbtTagCompound: %s, ", itemStack.getTagCompound().toString()));
-            }
-            
-            stringBuilder.append(String.format("itemName: %s, className: %s ", itemStack.getItemName(), itemStack.getItem().getClass().toString()));
-
-            return stringBuilder.toString();
+            stringBuilder.append(String.format("%sxitemStack[%s:%s:%s:%s]", this.stackSize, itemStack.itemID, itemStack.getItemDamage(), itemStack.getItemName(), itemStack.getItem().getClass().getCanonicalName()));
         }
         else if (oreStack != null) {
-            return stackSize + "xoreDictionary." + oreStack.oreName;
+            stringBuilder.append(String.format("%dxoreDictionary.%s", stackSize, oreStack.oreName));
+        }
+        else if (energyStack != null) {
+            stringBuilder.append(String.format("%dxenergyStack.%s", stackSize, energyStack.energyName));
         }
 
-        return null;
+        return stringBuilder.toString();
     }
 
     @Override
@@ -178,6 +231,9 @@ public class CustomWrappedStack {
         }
         else if (oreStack != null) {
             hashCode = 37 * hashCode + oreStack.oreName.hashCode();
+        }
+        else if (energyStack != null) {
+            hashCode = 37 * hashCode + energyStack.energyName.hashCode();
         }
 
         return hashCode;
