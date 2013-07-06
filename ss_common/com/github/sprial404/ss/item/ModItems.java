@@ -1,23 +1,19 @@
 package com.github.sprial404.ss.item;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-
-import com.github.sprial404.ss.block.ModBlocks;
 import com.github.sprial404.ss.lib.ItemIds;
 
-import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.item.Item;
+
 
 public class ModItems {
 
     /* Mod item instances */
-    public static Item topazGem;
+    public static Item plasmaIngot;
+    public static Item plasmaCell;
     
     public static void init() {
         /* Initialize each mod item individually */
-        topazGem = new ItemTopazGem(ItemIds.TOPAZ_GEM);
-        
-        GameRegistry.addRecipe(new ItemStack(ModBlocks.topazBlock), new Object[] { "TTT", "TTT", "TTT", Character.valueOf('T'), topazGem });
-        GameRegistry.addShapelessRecipe(new ItemStack(topazGem, 9), new Object[] { new ItemStack(ModBlocks.topazBlock) });
+        plasmaIngot = new ItemPlasmaIngot(ItemIds.PLASMA_INGOT);
+        plasmaCell = new ItemPlasmaCell(ItemIds.PLASMA_CELL);
     }
 }

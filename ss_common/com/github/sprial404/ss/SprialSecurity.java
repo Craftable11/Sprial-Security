@@ -86,11 +86,11 @@ public class SprialSecurity {
         // Register the Sound Handler (Client only)
         proxy.registerSoundHandler();
         
-        // Initalize mod blocks
-        ModBlocks.init();
-        
         // Initialize mod items
         ModItems.init();
+        
+        // Initalize mod blocks
+        ModBlocks.init();
     }
     
     @Init

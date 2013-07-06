@@ -26,12 +26,12 @@ public class Strings {
     public static final String NBT_TE_CUSTOM_NAME = "CustomName";
     
     /* Block name constants */
-    public static final String TOPAZ_ORE = "oreTopaz";
-    public static final String TOPAZ_BLOCK = "blockTopaz";
-    public static final String MACHINE_STRUCTURE = "structureMachine";
+    public static final String PLASMA_ORE_NAME = "orePlasma";
+    public static final String PLASMA_BLOCK_NAME = "blockPlasma";
     
     /* Item name constants */
-    public static final String TOPAZ_GEM = "gemTopaz";
+    public static final String PLASMA_INGOT_NAME = "ingotPlasma";
+    public static final String PLASMA_CELL_NAME = "cellPlasma";
     
     /* TileEntity name constants */
     
