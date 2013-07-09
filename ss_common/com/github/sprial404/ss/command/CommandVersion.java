@@ -1,11 +1,19 @@
 package com.github.sprial404.ss.command;
 
-import com.github.sprial404.ss.core.util.VersionHelper;
-import com.github.sprial404.ss.lib.Commands;
-
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
 
+import com.github.sprial404.ss.core.util.VersionHelper;
+import com.github.sprial404.ss.lib.Commands;
+
+/**
+ * Sprial-Security
+ * 
+ * CommandVersion
+ * 
+ * @author Sprial404
+ * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
+ */
 public class CommandVersion {
 
     public static void processCommand(ICommandSender commandSender, String[] args) {

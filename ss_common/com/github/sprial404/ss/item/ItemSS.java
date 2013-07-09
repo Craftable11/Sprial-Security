@@ -1,12 +1,21 @@
 package com.github.sprial404.ss.item;
 
+import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.item.Item;
+
 import com.github.sprial404.ss.lib.Reference;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.item.Item;
 
+/**
+ * Sprial-Security
+ * 
+ * ItemSS
+ * 
+ * @author Sprial404
+ * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
+ */
 public class ItemSS extends Item {
 
     public ItemSS(int id) {

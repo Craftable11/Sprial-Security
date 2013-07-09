@@ -4,10 +4,25 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 
-import cpw.mods.fml.common.network.IGuiHandler;
+import com.github.sprial404.ss.core.trackers.PlayerTracker;
 
+import cpw.mods.fml.common.network.IGuiHandler;
+import cpw.mods.fml.common.registry.GameRegistry;
+
+/**
+ * Sprial-Security
+ * 
+ * CommonProxy
+ * 
+ * @author Sprial404
+ * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
+ */
 public class CommonProxy implements IGuiHandler {
 
+    public void registerTrackers() {
+        GameRegistry.registerPlayerTracker(new PlayerTracker());
+    }
+    
     public void registerKeyBindingHandler() {
 
     }

@@ -2,10 +2,18 @@ package com.github.sprial404.ss.core.util;
 
 import java.util.ArrayList;
 
-import com.github.sprial404.ss.configuration.ConfigurationSettings;
-
 import net.minecraft.client.settings.KeyBinding;
 
+import com.github.sprial404.ss.configuration.ConfigurationSettings;
+
+/**
+ * Sprial-Security
+ * 
+ * KeyBindingUtil
+ * 
+ * @author Sprial404
+ * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
+ */
 public class KeyBindingUtil {
 
     public static ArrayList<KeyBinding> keyBindingsList;

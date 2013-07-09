@@ -2,6 +2,14 @@ package com.github.sprial404.ss.core.util;
 
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
+/**
+ * Sprial-Security
+ * 
+ * LocalizationUtil
+ * 
+ * @author Sprial404
+ * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
+ */
 public class LocalizationUtil {
 
     /***

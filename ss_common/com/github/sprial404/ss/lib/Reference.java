@@ -1,5 +1,13 @@
 package com.github.sprial404.ss.lib;
 
+/**
+ * Sprial-Security
+ * 
+ * Reference
+ * 
+ * @author Sprial404
+ * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
+ */
 public class Reference {
 
     /* Debug Mode On-Off */

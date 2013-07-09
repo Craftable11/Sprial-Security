@@ -6,6 +6,14 @@ import net.minecraftforge.event.ForgeSubscribe;
 import com.github.sprial404.ss.core.util.LogHelper;
 import com.github.sprial404.ss.lib.Sounds;
 
+/**
+ * Sprial-Security
+ * 
+ * SoundHandler
+ * 
+ * @author Sprial404
+ * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
+ */
 public class SoundHandler {
 
     @ForgeSubscribe

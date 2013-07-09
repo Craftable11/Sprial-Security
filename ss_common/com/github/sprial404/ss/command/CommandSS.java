@@ -2,12 +2,20 @@ package com.github.sprial404.ss.command;
 
 import java.util.List;
 
-import com.github.sprial404.ss.lib.Commands;
-
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
 
+import com.github.sprial404.ss.lib.Commands;
+
+/**
+ * Sprial-Security
+ * 
+ * CommandSS
+ * 
+ * @author Sprial404
+ * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
+ */
 public class CommandSS extends CommandBase {
 
     @Override

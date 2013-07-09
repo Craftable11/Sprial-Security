@@ -8,8 +8,16 @@ import net.minecraft.entity.monster.IMob;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
+/**
+ * Sprial-Security
+ * 
+ * GeneralHelper
+ * 
+ * @author Sprial404
+ * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
+ */
 public class GeneralHelper {
-
+    
     public static ItemStack convertObjectToItemStack(Object obj) {
 
         if (obj instanceof Item)

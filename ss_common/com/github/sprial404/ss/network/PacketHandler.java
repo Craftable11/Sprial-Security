@@ -8,6 +8,14 @@ import com.github.sprial404.ss.network.packet.PacketSS;
 import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.Player;
 
+/**
+ * Sprial-Security
+ * 
+ * PacketHandler
+ * 
+ * @author Sprial404
+ * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
+ */
 public class PacketHandler implements IPacketHandler {
 
     /***

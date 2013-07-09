@@ -1,11 +1,18 @@
 package com.github.sprial404.ss.creativetab;
 
-import com.github.sprial404.ss.lib.BlockIds;
-
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.creativetab.CreativeTabs;
 
+/**
+ * Sprial-Security
+ * 
+ * CreativeTabSS
+ * 
+ * @author Sprial404
+ * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
+ */
 public class CreativeTabSS extends CreativeTabs {
 
     public CreativeTabSS(int par1, String par2Str) {
@@ -18,6 +25,6 @@ public class CreativeTabSS extends CreativeTabs {
      * the itemID for the item to be displayed on the tab
      */
     public int getTabIconItemIndex() {
-        return BlockIds.TOPAZ_BLOCK;
+        return Item.redstone.itemID;
     }
 }

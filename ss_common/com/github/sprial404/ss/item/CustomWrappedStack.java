@@ -10,6 +10,14 @@ import com.github.sprial404.ss.core.util.ItemUtil;
 import com.github.sprial404.ss.core.util.OreStack;
 import com.github.sprial404.ss.lib.Reference;
 
+/**
+ * Sprial-Security
+ * 
+ * CustomWrappedStack
+ * 
+ * @author Sprial404
+ * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
+ */
 public class CustomWrappedStack {
 
     private int stackSize;

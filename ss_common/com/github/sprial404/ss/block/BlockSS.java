@@ -9,6 +9,14 @@ import com.github.sprial404.ss.lib.Reference;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
+/**
+ * Sprial-Security
+ * 
+ * BlockSS
+ * 
+ * @author Sprial404
+ * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
+ */
 public class BlockSS extends Block {
 
     public BlockSS(int id, Material material) {

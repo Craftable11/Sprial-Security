@@ -18,7 +18,14 @@ import com.github.sprial404.ss.item.CustomWrappedStack;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 
-
+/**
+ * Sprial-Security
+ * 
+ * RecipeHelper
+ * 
+ * @author Sprial404
+ * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
+ */
 public class RecipeHelper {
 
     /**

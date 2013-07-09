@@ -17,6 +17,14 @@ import com.github.sprial404.ss.item.CustomWrappedStack;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 
+/**
+ * Sprial-Security
+ * 
+ * RecipeRegistry
+ * 
+ * @author Sprial404
+ * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
+ */
 public class RecipeRegistry {
 
     private static RecipeRegistry recipeRegistry = null;

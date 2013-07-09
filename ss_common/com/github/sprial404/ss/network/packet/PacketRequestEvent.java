@@ -4,12 +4,20 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import com.github.sprial404.ss.network.PacketTypeHandler;
-
 import net.minecraft.network.INetworkManager;
+
+import com.github.sprial404.ss.network.PacketTypeHandler;
 
 import cpw.mods.fml.common.network.Player;
 
+/**
+ * Sprial-Security
+ * 
+ * PacketRequestEvent
+ * 
+ * @author Sprial404
+ * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
+ */
 public class PacketRequestEvent extends PacketSS {
 
     public byte eventType;

@@ -5,6 +5,14 @@ import com.github.sprial404.ss.lib.Localizations;
 
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
+/**
+ * Sprial-Security
+ * 
+ * LocalizationHandler
+ * 
+ * @author Sprial404
+ * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
+ */
 public class LocalizationHandler {
 
     /***

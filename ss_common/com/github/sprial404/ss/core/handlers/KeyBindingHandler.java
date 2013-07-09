@@ -17,6 +17,14 @@ import cpw.mods.fml.client.registry.KeyBindingRegistry;
 import cpw.mods.fml.common.TickType;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
+/**
+ * Sprial-Security
+ * 
+ * KeyBindingHandler
+ * 
+ * @author Sprial404
+ * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
+ */
 public class KeyBindingHandler extends KeyBindingRegistry.KeyHandler {
 
     public KeyBindingHandler() {

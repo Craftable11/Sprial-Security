@@ -12,6 +12,14 @@ import com.github.sprial404.ss.network.PacketTypeHandler;
 
 import cpw.mods.fml.common.network.Player;
 
+/**
+ * Sprial-Security
+ * 
+ * PacketTileUpdate
+ * 
+ * @author Sprial404
+ * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
+ */
 public class PacketTileUpdate extends PacketSS {
 
     public int x, y, z;

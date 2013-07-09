@@ -7,6 +7,14 @@ import com.github.sprial404.ss.lib.Reference;
 
 import cpw.mods.fml.common.FMLLog;
 
+/**
+ * Sprial-Security
+ * 
+ * LogHelper
+ * 
+ * @author Sprial404
+ * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
+ */
 public class LogHelper {
 
     private static Logger ssLogger = Logger.getLogger(Reference.MOD_ID);

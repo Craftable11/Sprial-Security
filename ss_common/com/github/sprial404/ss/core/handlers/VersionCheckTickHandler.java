@@ -14,6 +14,14 @@ import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
 
+/**
+ * Sprial-Security
+ * 
+ * VersionCheckTickHandler
+ * 
+ * @author Sprial404
+ * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
+ */
 public class VersionCheckTickHandler implements ITickHandler {
 
     private static boolean initialized = false;

@@ -6,6 +6,14 @@ import java.util.Comparator;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
+/**
+ * Sprial-Security
+ * 
+ * OreStack
+ * 
+ * @author Sprial404
+ * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
+ */
 public class OreStack implements Comparator<OreStack> {
 
     public String oreName;

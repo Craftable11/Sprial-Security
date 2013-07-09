@@ -16,6 +16,14 @@ import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.KeyBindingRegistry;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
+/**
+ * Sprial-Security
+ * 
+ * ClientProxy
+ * 
+ * @author Sprial404
+ * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
+ */
 public class ClientProxy extends CommonProxy {
 
     @Override

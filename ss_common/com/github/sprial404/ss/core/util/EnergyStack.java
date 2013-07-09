@@ -1,5 +1,13 @@
 package com.github.sprial404.ss.core.util;
 
+/**
+ * Sprial-Security
+ * 
+ * EnergyStack
+ * 
+ * @author Sprial404
+ * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
+ */
 public class EnergyStack {
 
     public static final String VANILLA_SMELTING_ENERGY_NAME = "vanillaFuelValueUnits";

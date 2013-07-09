@@ -1,9 +1,5 @@
 package com.github.sprial404.ss.block;
 
-import com.github.sprial404.ss.lib.Reference;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -13,6 +9,19 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 
+import com.github.sprial404.ss.lib.Reference;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
+/**
+ * Sprial-Security
+ * 
+ * BlockContainerSS
+ * 
+ * @author Sprial404
+ * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
+ */
 public abstract class BlockContainerSS extends BlockContainer {
 
     public BlockContainerSS(int par1, Material par2Material) {

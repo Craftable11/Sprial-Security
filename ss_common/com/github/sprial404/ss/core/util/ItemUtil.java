@@ -11,6 +11,14 @@ import com.github.sprial404.ss.item.CustomWrappedStack;
 import com.github.sprial404.ss.lib.Colours;
 import com.github.sprial404.ss.lib.Strings;
 
+/**
+ * Sprial-Security
+ * 
+ * ItemUtil
+ * 
+ * @author Sprial404
+ * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
+ */
 public class ItemUtil {
 
     public static String toString(ItemStack itemStack) {

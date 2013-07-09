@@ -4,16 +4,24 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.network.INetworkManager;
+
 import com.github.sprial404.ss.configuration.ConfigurationSettings;
 import com.github.sprial404.ss.lib.Commands;
 import com.github.sprial404.ss.network.PacketTypeHandler;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.network.INetworkManager;
-
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.network.Player;
 
+/**
+ * Sprial-Security
+ * 
+ * PacketSoundEvent
+ * 
+ * @author Sprial404
+ * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
+ */
 public class PacketSoundEvent extends PacketSS {
 
     public String playerName;

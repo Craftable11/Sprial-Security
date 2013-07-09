@@ -4,15 +4,23 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import com.github.sprial404.ss.lib.ItemUpdateTypes;
-import com.github.sprial404.ss.network.PacketTypeHandler;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.INetworkManager;
 
+import com.github.sprial404.ss.lib.ItemUpdateTypes;
+import com.github.sprial404.ss.network.PacketTypeHandler;
+
 import cpw.mods.fml.common.network.Player;
 
+/**
+ * Sprial-Security
+ * 
+ * PacketItemUpdate
+ * 
+ * @author Sprial404
+ * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
+ */
 public class PacketItemUpdate extends PacketSS {
 
     public byte slot;

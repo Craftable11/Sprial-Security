@@ -15,6 +15,14 @@ import com.github.sprial404.ss.lib.Strings;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
+/**
+ * Sprial-Security
+ * 
+ * VersionHelper
+ * 
+ * @author Sprial404
+ * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
+ */
 public class VersionHelper implements Runnable {
 
     private static VersionHelper instance = new VersionHelper();

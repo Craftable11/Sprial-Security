@@ -16,6 +16,14 @@ import com.github.sprial404.ss.network.packet.PacketSpawnParticle;
 import com.github.sprial404.ss.network.packet.PacketTileUpdate;
 import com.github.sprial404.ss.network.packet.PacketTileWithItemUpdate;
 
+/**
+ * Sprial-Security
+ * 
+ * PacketTypeHandler
+ * 
+ * @author Sprial404
+ * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
+ */
 public enum PacketTypeHandler {
 
     KEY(PacketKeyPressed.class),
