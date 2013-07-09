@@ -1,15 +1,23 @@
 package com.github.sprial404.ss.tileentiy;
 
-import com.github.sprial404.ss.lib.Strings;
-import com.github.sprial404.ss.network.PacketTypeHandler;
-import com.github.sprial404.ss.network.packet.PacketTileUpdate;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 
+import com.github.sprial404.ss.lib.Strings;
+import com.github.sprial404.ss.network.PacketTypeHandler;
+import com.github.sprial404.ss.network.packet.PacketTileUpdate;
+
+/**
+ * Sprial-Security
+ * 
+ * TileSS
+ * 
+ * @author Sprial404
+ * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
+ */
 public class TileSS extends TileEntity {
 
     protected ForgeDirection orientation;
