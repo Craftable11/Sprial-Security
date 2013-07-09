@@ -17,6 +17,7 @@ import com.github.sprial404.ss.item.ModItems;
 import com.github.sprial404.ss.lib.Reference;
 import com.github.sprial404.ss.lib.Strings;
 import com.github.sprial404.ss.network.PacketHandler;
+import com.github.sprial404.ss.security.Fingerprint;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.FingerprintWarning;
@@ -36,6 +37,15 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 
+/**
+ * Sprial-Security
+ * 
+ * SprialSecurity
+ * 
+ * @author Sprial404
+ * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
+ * 
+ */
 @Mod(modid = Reference.MOD_ID, name= Reference.MOD_NAME, version = Reference.VERSION_NUMBER, dependencies = Reference.DEPENDENCIES, certificateFingerprint = Reference.FINGERPRINT)
 @NetworkMod(channels = { Reference.CHANNEL_NAME }, clientSideRequired = true, serverSideRequired = false, packetHandler = PacketHandler.class)
 public class SprialSecurity {
@@ -77,6 +87,9 @@ public class SprialSecurity {
         // Initialize the Version Check Tick Handler (Client only)
         TickRegistry.registerTickHandler(new VersionCheckTickHandler(), Side.CLIENT);
         
+        // Register the Trackers (Server and Client)
+        proxy.registerTrackers();
+        
         // Initialize the Render Tick Handler (Client only)
         proxy.registerRenderTickHandler();
 
@@ -91,6 +104,9 @@ public class SprialSecurity {
         
         // Initialize mod items
         ModItems.init();
+        
+        // Load existing fingerprints
+        Fingerprint.load();
     }
     
     @Init
