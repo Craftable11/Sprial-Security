@@ -9,24 +9,24 @@ import com.github.sprial404.ss.lib.ToolClass;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 
+/**
+ * Sprial-Security
+ * 
+ * ModBlocks
+ * 
+ * @author Sprial404
+ * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
+ */
 public class ModBlocks {
 
     /* Mod block instances */
-    public static Block topazOre;
-    public static Block topazBlock;
     public static Block machineStructure;
     
     public static void init() {
-        topazOre = new BlockTopazOre(BlockIds.TOPAZ_ORE);
-        topazBlock = new BlockTopaz(BlockIds.TOPAZ_BLOCK);
         machineStructure = new BlockMachineStructure(BlockIds.MACHINE_STRUCTURE);
         
-        GameRegistry.registerBlock(topazOre, Strings.TOPAZ_ORE);
-        GameRegistry.registerBlock(topazBlock, Strings.TOPAZ_BLOCK);
-        GameRegistry.registerBlock(machineStructure, Strings.MACHINE_STRUCTURE);
+        GameRegistry.registerBlock(machineStructure, Strings.MACHINE_STRUCTURE_NAME);
         
-        MinecraftForge.setBlockHarvestLevel(topazOre, ToolClass.PICKAXE, 2);
-        MinecraftForge.setBlockHarvestLevel(topazBlock, ToolClass.PICKAXE, 2);
         MinecraftForge.setBlockHarvestLevel(machineStructure, ToolClass.PICKAXE, 2);
         
         initBlockRecipes();
