@@ -14,6 +14,14 @@ import com.github.sprial404.ss.lib.Strings;
 
 import cpw.mods.fml.common.FMLLog;
 
+/**
+ * Sprial-Security
+ * 
+ * ConfigurationHandler
+ * 
+ * @author Sprial404
+ * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
+ */
 public class ConfigurationHandler {
 
     public static Configuration configuration;
@@ -39,15 +47,15 @@ public class ConfigurationHandler {
             ConfigurationSettings.ENABLE_SOUNDS = configuration.get(CATEGORY_AUDIO, ConfigurationSettings.ENABLE_SOUNDS_CONFIGNAME, ConfigurationSettings.ENABLE_SOUNDS_DEFAULT).getString();
             
             /* Block configs */
-            BlockIds.TOPAZ_ORE = configuration.getBlock(Strings.TOPAZ_ORE, BlockIds.TOPAZ_ORE_DEFAULT).getInt(BlockIds.TOPAZ_ORE_DEFAULT);
-            BlockIds.TOPAZ_BLOCK = configuration.getBlock(Strings.TOPAZ_BLOCK, BlockIds.TOPAZ_BLOCK_DEFAULT).getInt(BlockIds.TOPAZ_BLOCK_DEFAULT);
-            BlockIds.MACHINE_STRUCTURE = configuration.getBlock(Strings.MACHINE_STRUCTURE, BlockIds.MACHINE_STRUCTURE_DEFAULT).getInt(BlockIds.MACHINE_STRUCTURE_DEFAULT);
+            BlockIds.GEM_BLOCK = configuration.getBlock(Strings.GEM_BLOCK_NAME, BlockIds.GEM_BLOCK_DEFAULT).getInt(BlockIds.GEM_BLOCK_DEFAULT);
+            BlockIds.GEM_ORE = configuration.getBlock(Strings.GEM_ORE_NAME, BlockIds.GEM_ORE_DEFAULT).getInt(BlockIds.GEM_ORE_DEFAULT);
+            BlockIds.MACHINE_STRUCTURE = configuration.getBlock(Strings.MACHINE_STRUCTURE_NAME, BlockIds.MACHINE_STRUCTURE_DEFAULT).getInt(BlockIds.MACHINE_STRUCTURE_DEFAULT);
             
             /* Block property configs */
             configuration.addCustomCategoryComment(CATEGORY_BLOCK_PROPERTIES, "Custom block properties");
             
             /* Item configs */
-            ItemIds.TOPAZ_GEM = configuration.getItem(Strings.TOPAZ_GEM, ItemIds.TOPAZ_GEM_DEFAULT).getInt(ItemIds.TOPAZ_GEM_DEFAULT);
+            ItemIds.GEM = configuration.getItem(Strings.GEM_NAME, ItemIds.GEM_DEFAULT).getInt(ItemIds.GEM_DEFAULT);
             
             /* KeyBinding configs */
             configuration.addCustomCategoryComment(CATEGORY_KEYBIND, "Keybindings for Sprial Security. See http://www.minecraftwiki.net/wiki/Key_codes for mapping of key codes to keyboard keys");
