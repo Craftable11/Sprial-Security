@@ -1,8 +1,9 @@
 package com.github.sprial404.ss.core.trackers;
 
-import com.github.sprial404.ss.security.Fingerprint;
-
 import net.minecraft.entity.player.EntityPlayer;
+
+import com.github.sprial404.ss.core.util.FingerprintHelper;
+
 import cpw.mods.fml.common.IPlayerTracker;
 
 /**
@@ -17,7 +18,7 @@ public class PlayerTracker implements IPlayerTracker {
     
     @Override
     public void onPlayerLogin(EntityPlayer player) {
-        Fingerprint.onPlayerLogin(player);
+        FingerprintHelper.onPlayerLogin(player);
     }
 
     @Override

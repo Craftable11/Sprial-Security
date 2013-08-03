@@ -10,6 +10,7 @@ import com.github.sprial404.ss.configuration.ConfigurationHandler;
 import com.github.sprial404.ss.core.handlers.LocalizationHandler;
 import com.github.sprial404.ss.core.handlers.VersionCheckTickHandler;
 import com.github.sprial404.ss.core.proxy.CommonProxy;
+import com.github.sprial404.ss.core.util.FingerprintHelper;
 import com.github.sprial404.ss.core.util.LogHelper;
 import com.github.sprial404.ss.core.util.VersionHelper;
 import com.github.sprial404.ss.creativetab.CreativeTabSS;
@@ -17,15 +18,10 @@ import com.github.sprial404.ss.item.ModItems;
 import com.github.sprial404.ss.lib.Reference;
 import com.github.sprial404.ss.lib.Strings;
 import com.github.sprial404.ss.network.PacketHandler;
-import com.github.sprial404.ss.security.Fingerprint;
 
 import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.FingerprintWarning;
-import cpw.mods.fml.common.Mod.Init;
+import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.Mod.PostInit;
-import cpw.mods.fml.common.Mod.PreInit;
-import cpw.mods.fml.common.Mod.ServerStarting;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLFingerprintViolationEvent;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
@@ -58,19 +54,19 @@ public class SprialSecurity {
     
     public static CreativeTabs tabsSS = new CreativeTabSS(CreativeTabs.getNextID(), Reference.MOD_ID);
     
-    @FingerprintWarning
+    @EventHandler
     public void invalidFingerprint(FMLFingerprintViolationEvent event) {
      // Report (log) to the user that the version of Sprial Security they are using has been changed/tampered with
      LogHelper.severe(Strings.INVALID_FINGERPRINT_MESSAGE);
     }
     
-    @ServerStarting
+    @EventHandler
     public void serverStarting(FMLServerStartingEvent event) {
         // Initialize the custom commands
         CommandHandler.initCommands(event);
     }
     
-    @PreInit
+    @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         // Initialize the log helper
         LogHelper.init();
@@ -86,6 +82,9 @@ public class SprialSecurity {
         
         // Initialize the Version Check Tick Handler (Client only)
         TickRegistry.registerTickHandler(new VersionCheckTickHandler(), Side.CLIENT);
+        
+        // Initialize the Player Movement Tick Handler (Client only)
+        // TickRegistry.registerTickHandler(new PlayerMovementTickHandler(), Side.CLIENT);
         
         // Register the Trackers (Server and Client)
         proxy.registerTrackers();
@@ -105,11 +104,11 @@ public class SprialSecurity {
         // Initialize mod items
         ModItems.init();
         
-        // Load existing fingerprints
-        Fingerprint.load();
+        // Load Fingerprints from File
+       FingerprintHelper.init();
     }
     
-    @Init
+    @EventHandler
     public void load(FMLInitializationEvent event) {
         // Register the GUI Handler
         NetworkRegistry.instance().registerGuiHandler(instance, proxy);
@@ -121,7 +120,7 @@ public class SprialSecurity {
         proxy.initRenderingAndTextures();
     }
     
-    @PostInit
+    @EventHandler
     public void modsLoaded(FMLPostInitializationEvent event) {
         
     }

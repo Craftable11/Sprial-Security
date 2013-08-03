@@ -2,6 +2,7 @@ package com.github.sprial404.ss.command;
 
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
+import net.minecraft.util.ChatMessageComponent;
 
 import com.github.sprial404.ss.core.util.VersionHelper;
 import com.github.sprial404.ss.lib.Commands;
@@ -38,7 +39,7 @@ public class CommandVersion {
 
     private static void processVersionCommand(ICommandSender commandSender) {
 
-        commandSender.sendChatToPlayer(VersionHelper.getResultMessage());
+        commandSender.sendChatToPlayer(ChatMessageComponent.func_111077_e(VersionHelper.getResultMessage()));
     }
 
     private static void processChangelogCommand(ICommandSender commandSender) {

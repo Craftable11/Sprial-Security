@@ -22,7 +22,7 @@ public class SoundHandler {
         for (String soundFile : Sounds.soundFiles) {
             // Try to add the custom sound file to pool of sounds
             try {
-                event.manager.soundPoolSounds.addSound(soundFile, this.getClass().getResource("/" + soundFile));
+                event.manager.addSound(soundFile);
             } catch (Exception e) {
                 LogHelper.warning("Failed loading sound file: " + soundFile);
             }

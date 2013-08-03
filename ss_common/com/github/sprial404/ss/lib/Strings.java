@@ -46,10 +46,8 @@ public class Strings {
     public static final String NBT_ENCODED_ATTR_ITEM_TAG_COMPOUND = "tag";
     public static final String NBT_ENCODED_ATTR_ORE_NAME = "oreName";
     public static final String NBT_ENCODED_ATTR_ENERGY_NAME = "energyName";
-
     public static final String NBT_FINGERPRINT = "fingerprint";
-    public static final String NBT_FINGERPRINT_CARD_ITEM = "fingerprintCardItem";
-    public static final String NBT_FINGERPRINT_CARD_ID = "fingerprintCardId";
+    public static final String NBT_USERNAME = "username";
     
     /** List of Gems Names */
     public static final String[] GEM_NAMES = new String[] { "Topaz", "Onyx", "Spinel", "Moonstone", "AndesineLabradorite", "Amethyst", "FireOpal", "Jadeite", "Agate" };
@@ -67,7 +65,7 @@ public class Strings {
     public static final String TE_FINGERPRINT_SCANNER_NAME = "tileScannerFingerprint";
     
     /* Container related constants */
-    public static final String CONTAINER_FINGERPRINT_SCANNER_NAME = "container." +FINGERPRINT_SCANNER_NAME;
+    public static final String CONTAINER_FINGERPRINT_SCANNER_NAME = "container." + FINGERPRINT_SCANNER_NAME;
     public static final String CONTAINER_INVENTORY = "container.inventory";
     public static final String CONTAINER_PORTABLE_CRAFTING = "container.crafting";
 }

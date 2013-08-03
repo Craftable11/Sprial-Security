@@ -2,6 +2,8 @@ package com.github.sprial404.ss.item;
 
 import java.util.ArrayList;
 
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -36,7 +38,16 @@ public class CustomWrappedStack {
      *            The newly created wrapped stack object
      */
     public CustomWrappedStack(Object object) {
-
+        /*
+         * If we are given an Item or a Block, convert it to an ItemStack for further inspection
+         */
+        if (object instanceof Item) {
+            object = new ItemStack((Item) object);
+        }
+        else if (object instanceof Block) {
+            object = new ItemStack((Block) object);
+        }
+        
         /*
          * We are given an ItemStack to wrap
          */
@@ -111,6 +122,14 @@ public class CustomWrappedStack {
             stackSize = energyStack.stackSize;
             energyStack.stackSize = 1;
         }
+        else if (object instanceof CustomWrappedStack) {
+            CustomWrappedStack wrappedStack = (CustomWrappedStack) object;
+            
+            itemStack = wrappedStack.itemStack;
+            oreStack = wrappedStack.oreStack;
+            energyStack = wrappedStack.energyStack;
+            stackSize = wrappedStack.stackSize;
+        }
         /*
          * Else, we are given something we cannot wrap
          */
@@ -126,7 +145,6 @@ public class CustomWrappedStack {
      * @return The size of the wrapped stack
      */
     public int getStackSize() {
-
         return stackSize;
     }
 
@@ -137,7 +155,6 @@ public class CustomWrappedStack {
      *            The new size of the wrapped stack
      */
     public void setStackSize(int stackSize) {
-
         this.stackSize = stackSize;
     }
 
@@ -149,7 +166,6 @@ public class CustomWrappedStack {
      *         used to create this object
      */
     public Object getWrappedStack() {
-
         if (itemStack != null) {
             return itemStack;
         }
@@ -165,7 +181,6 @@ public class CustomWrappedStack {
 
     @Override
     public boolean equals(Object object) {
-
         if (!(object instanceof CustomWrappedStack))
             return false;
 
@@ -202,7 +217,25 @@ public class CustomWrappedStack {
 
     @Override
     public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
 
+        if (itemStack != null) {
+            stringBuilder.append(String.format("%sxitemStack[%s:%s:%s:%s]", this.stackSize, itemStack.itemID, itemStack.getItemDamage(), itemStack.getItemName(), itemStack.getItem().getClass().getCanonicalName()));
+        }
+        else if (oreStack != null) {
+            stringBuilder.append(String.format("%dxoreDictionary.%s", stackSize, oreStack.oreName));
+        }
+        else if (energyStack != null) {
+            stringBuilder.append(String.format("%dxenergyStack.%s", stackSize, energyStack.energyName));
+        }
+        else {
+            stringBuilder.append("null");
+        }
+
+        return stringBuilder.toString();
+    }
+    
+    public String encodeAsPropertyKey() {
         StringBuilder stringBuilder = new StringBuilder();
 
         if (itemStack != null) {
@@ -220,7 +253,6 @@ public class CustomWrappedStack {
 
     @Override
     public int hashCode() {
-
         int hashCode = 1;
 
         hashCode = 37 * hashCode + stackSize;
@@ -235,7 +267,11 @@ public class CustomWrappedStack {
                 hashCode = 37 * hashCode + itemStack.getItemDamage();
             }
 
-            hashCode = 37 * hashCode + itemStack.getItemName().hashCode();
+            try {
+                hashCode = 37 * hashCode + itemStack.getItemName().hashCode();
+            } catch (ArrayIndexOutOfBoundsException e) { 
+                
+            }
         }
         else if (oreStack != null) {
             hashCode = 37 * hashCode + oreStack.oreName.hashCode();
@@ -245,5 +281,9 @@ public class CustomWrappedStack {
         }
 
         return hashCode;
+    }
+    
+    public static boolean canBeWrapped(Object object) {
+        return (object instanceof CustomWrappedStack || object instanceof ItemStack || object instanceof OreStack || object instanceof EnergyStack || object instanceof Item || object instanceof Block);
     }
 }

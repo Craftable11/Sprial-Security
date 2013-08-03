@@ -1,5 +1,8 @@
 package com.github.sprial404.ss.lib;
 
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.util.ResourceLocation;
+
 /**
  * Sprial-Security
  * 
@@ -17,8 +20,8 @@ public class Textures {
     public static final String EFFECTS_LOCATION = "/mods/ss/textures/effects/";
     
     // Item/Block sprite sheets
-    public static final String VANILLA_ITEM_TEXTURE_SHEET = "/gui/items.png";
-    public static final String VANILLA_BLOCK_TEXTURE_SHEET = "/terrain.png";
+    public static final ResourceLocation VANILLA_ITEM_TEXTURE_SHEET = TextureMap.field_110575_b;
+    public static final ResourceLocation VANILLA_BLOCK_TEXTURE_SHEET = TextureMap.field_110576_c;
     
     // Armor sprite sheets
     

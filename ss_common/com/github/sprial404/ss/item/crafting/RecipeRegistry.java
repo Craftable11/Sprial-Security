@@ -35,7 +35,6 @@ public class RecipeRegistry {
     private List<CustomWrappedStack> wildCardStacks;
 
     private RecipeRegistry() {
-
         recipeMap = HashMultimap.create();
         wildCardStacks = RecipeHelper.populateWildCards();
         discoveredStacks = new ArrayList<CustomWrappedStack>();
@@ -43,7 +42,6 @@ public class RecipeRegistry {
     }
 
     public static RecipeRegistry getInstance() {
-
         if (recipeRegistry == null) {
             recipeRegistry = new RecipeRegistry();
             recipeRegistry.init();
@@ -53,12 +51,11 @@ public class RecipeRegistry {
     }
     
     private void init() {
-        
         Multimap<CustomWrappedStack, List<CustomWrappedStack>> recipes = HashMultimap.create();
 
         // Add potion recipes
         recipes.putAll(RecipesPotions.getPotionRecipes());
-        
+
         // Add smelting recipes in the vanilla smelting manager
         recipes.putAll(RecipesSmelting.getSmeltingRecipes());
 
@@ -91,7 +88,6 @@ public class RecipeRegistry {
     }
     
     private void discoverStacks(Multimap<CustomWrappedStack, List<CustomWrappedStack>> recipes) {
-        
         Set<CustomWrappedStack> recipeKeySet = recipes.keySet();
         Iterator<CustomWrappedStack> recipeKeySetIterator = recipeKeySet.iterator();
         CustomWrappedStack recipeOutput = null;
@@ -100,7 +96,7 @@ public class RecipeRegistry {
         while (recipeKeySetIterator.hasNext()) {
             recipeOutput = recipeKeySetIterator.next();
             
-            if (!discoveredStacks.contains(new CustomWrappedStack(recipeOutput.getWrappedStack()))) {
+            if (!discoveredStacks.contains(new CustomWrappedStack(recipeOutput.getWrappedStack())) && recipeOutput.getWrappedStack() != null) {
                 discoveredStacks.add(new CustomWrappedStack(recipeOutput.getWrappedStack()));
             }
             
@@ -109,37 +105,34 @@ public class RecipeRegistry {
                     
                     CustomWrappedStack unwrappedRecipeInput = new CustomWrappedStack(recipeInput.getWrappedStack());
                     
-                    if (!discoveredStacks.contains(unwrappedRecipeInput)) {
+                    if (!discoveredStacks.contains(unwrappedRecipeInput) && recipeInput.getWrappedStack() != null) {
                         discoveredStacks.add(unwrappedRecipeInput);
                     }
                 }
             }
         }
 
-        // Discover all stacks from the vanilla Items array
-        ArrayList<ItemStack> subItemList = new ArrayList<ItemStack>();
+        CustomWrappedStack customWrappedStack;
         
+        // Discover all stacks from the vanilla Items array
         for (int i = 0; i < Item.itemsList.length; i++) {
+            
             if (Item.itemsList[i] != null) {
+                
                 if (Item.itemsList[i].getHasSubtypes()) {
-
-                    subItemList.clear();
-                    Item.itemsList[i].getSubItems(i, Item.itemsList[i].getCreativeTab(), subItemList);
-
-                    for (ItemStack itemStack : subItemList) {
-                        if (itemStack != null) {
-
-                            CustomWrappedStack customWrappedStack = new CustomWrappedStack(itemStack);
-
-                            if (!discoveredStacks.contains(customWrappedStack)) {
-                                discoveredStacks.add(customWrappedStack);
-                            }
+                    
+                    for (int meta = 0; meta < 16; meta++) {
+                        
+                        customWrappedStack = new CustomWrappedStack(new ItemStack(Item.itemsList[i].itemID, 1, meta));
+                        
+                        if (!discoveredStacks.contains(customWrappedStack)) {
+                            discoveredStacks.add(customWrappedStack);
                         }
                     }
                 }
                 else {
                     
-                    CustomWrappedStack customWrappedStack = new CustomWrappedStack(new ItemStack(Item.itemsList[i]));
+                    customWrappedStack = new CustomWrappedStack(new ItemStack(Item.itemsList[i]));
                     
                     if (!discoveredStacks.contains(customWrappedStack)) {
                         discoveredStacks.add(customWrappedStack);
@@ -153,8 +146,7 @@ public class RecipeRegistry {
          * and we haven't already added it to the recipeless stack list, add it to the recipeless stack
          * list
          */
-        for (CustomWrappedStack discoveredStack : discoveredStacks) {
-            
+        for (CustomWrappedStack discoveredStack : discoveredStacks) {   
             if (recipes.get(discoveredStack).size() == 0 && !recipelessStacks.contains(discoveredStack)) {
                 recipelessStacks.add(discoveredStack);
             }
@@ -162,34 +154,28 @@ public class RecipeRegistry {
     }
 
     public boolean hasRecipe(CustomWrappedStack customWrappedStack) {
-
         return recipeMap.containsKey(customWrappedStack);
     }
 
     public boolean hasRecipe(ItemStack itemStack) {
-
         return hasRecipe(new CustomWrappedStack(itemStack));
     }
 
     public int countRecipesFor(CustomWrappedStack customWrappedStack) {
-
         Collection<List<CustomWrappedStack>> keys = recipeMap.get(customWrappedStack);
 
         return keys.size();
     }
 
     public int countRecipesFor(ItemStack itemStack) {
-
         return countRecipesFor(new CustomWrappedStack(itemStack));
     }
 
     public Collection<List<CustomWrappedStack>> getRecipesFor(CustomWrappedStack customWrappedStack) {
-
         return recipeMap.get(customWrappedStack);
     }
 
     public Collection<List<CustomWrappedStack>> getRecipesFor(ItemStack itemStack) {
-
         return getRecipesFor(new CustomWrappedStack(itemStack));
     }
 
@@ -197,7 +183,6 @@ public class RecipeRegistry {
      * Item: Item (Output) <- { ... }
      */
     public void addRecipe(CustomWrappedStack recipeOutput, List<?> recipeInputs) {
-
         ArrayList<CustomWrappedStack> collatedStacks = new ArrayList<CustomWrappedStack>();
 
         CustomWrappedStack wrappedInputStack = null;
@@ -269,13 +254,11 @@ public class RecipeRegistry {
     }
 
     public int size() {
-
         return recipeMap.size();
     }
 
     @Override
     public String toString() {
-
         StringBuilder stringBuilder = new StringBuilder();
 
         for (CustomWrappedStack key : recipeMap.keySet()) {
@@ -291,22 +274,18 @@ public class RecipeRegistry {
     }
     
     public Multimap<CustomWrappedStack, List<CustomWrappedStack>> getRecipeMappings() {
-        
         return recipeMap;
     }
     
     public List<CustomWrappedStack> getDiscoveredStacks() {
-        
         return discoveredStacks;
     }
     
     public List<CustomWrappedStack> getRecipelessStacks() {
-        
         return recipelessStacks;
     }
     
     public List<CustomWrappedStack> getWildCardStacks() {
-        
         return wildCardStacks;
     }
 }

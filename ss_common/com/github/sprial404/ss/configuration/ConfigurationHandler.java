@@ -29,6 +29,7 @@ public class ConfigurationHandler {
     public static final String CATEGORY_KEYBIND = "keybindings";
     public static final String CATEGORY_GRAPHICS = "graphics";
     public static final String CATEGORY_AUDIO = "audio";
+    public static final String CATEGORY_FINGERPRINT = "fingerprint";
     public static final String CATEGORY_BLOCK_PROPERTIES = Configuration.CATEGORY_BLOCK + Configuration.CATEGORY_SPLITTER + "properties";
     
     public static void init(File configFile) {
@@ -45,6 +46,9 @@ public class ConfigurationHandler {
             
             /* Audio configs */
             ConfigurationSettings.ENABLE_SOUNDS = configuration.get(CATEGORY_AUDIO, ConfigurationSettings.ENABLE_SOUNDS_CONFIGNAME, ConfigurationSettings.ENABLE_SOUNDS_DEFAULT).getString();
+            
+            /* Fingerprint configs */
+            ConfigurationSettings.FINGERPRINT_LENGTH = configuration.get(CATEGORY_FINGERPRINT, ConfigurationSettings.FINGERPRINT_LENGTH_CONFIGNAME, ConfigurationSettings.FINGERPRINT_LENGTH_DEFAULT).getInt(ConfigurationSettings.FINGERPRINT_LENGTH_DEFAULT);
             
             /* Block configs */
             BlockIds.GEM_BLOCK = configuration.getBlock(Strings.GEM_BLOCK_NAME, BlockIds.GEM_BLOCK_DEFAULT).getInt(BlockIds.GEM_BLOCK_DEFAULT);

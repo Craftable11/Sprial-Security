@@ -2,11 +2,10 @@ package com.github.sprial404.ss.command;
 
 import net.minecraft.command.ICommandSender;
 import net.minecraft.command.WrongUsageException;
+import net.minecraft.util.ChatMessageComponent;
 
 import com.github.sprial404.ss.configuration.ConfigurationHandler;
 import com.github.sprial404.ss.configuration.ConfigurationSettings;
-import com.github.sprial404.ss.core.util.LocalizationUtil;
-import com.github.sprial404.ss.lib.Colours;
 import com.github.sprial404.ss.lib.Commands;
 
 /**
@@ -46,20 +45,20 @@ public class CommandSounds {
 
         ConfigurationSettings.ENABLE_SOUNDS = Commands.ALL;
         ConfigurationHandler.set(ConfigurationHandler.CATEGORY_AUDIO, ConfigurationSettings.ENABLE_SOUNDS_CONFIGNAME, Commands.ALL);
-        commandSender.sendChatToPlayer(Colours.TEXT_COLOUR_PREFIX_GRAY + LocalizationUtil.getLocalizedString(Commands.COMMAND_SOUNDS_SET_TO_ALL));
+        commandSender.sendChatToPlayer(ChatMessageComponent.func_111077_e(Commands.COMMAND_SOUNDS_SET_TO_ALL));
     }
 
     private static void processSelfCommand(ICommandSender commandSender) {
 
         ConfigurationSettings.ENABLE_SOUNDS = Commands.SELF;
         ConfigurationHandler.set(ConfigurationHandler.CATEGORY_AUDIO, ConfigurationSettings.ENABLE_SOUNDS_CONFIGNAME, Commands.SELF);
-        commandSender.sendChatToPlayer(Colours.TEXT_COLOUR_PREFIX_GRAY + LocalizationUtil.getLocalizedString(Commands.COMMAND_SOUNDS_SET_TO_SELF));
+        commandSender.sendChatToPlayer(ChatMessageComponent.func_111077_e(Commands.COMMAND_SOUNDS_SET_TO_SELF));
     }
 
     private static void processOffCommand(ICommandSender commandSender) {
 
         ConfigurationSettings.ENABLE_SOUNDS = Commands.OFF;
         ConfigurationHandler.set(ConfigurationHandler.CATEGORY_AUDIO, ConfigurationSettings.ENABLE_SOUNDS_CONFIGNAME, Commands.OFF);
-        commandSender.sendChatToPlayer(Colours.TEXT_COLOUR_PREFIX_GRAY + LocalizationUtil.getLocalizedString(Commands.COMMAND_SOUNDS_TURNED_OFF));
+        commandSender.sendChatToPlayer(ChatMessageComponent.func_111077_e(Commands.COMMAND_SOUNDS_TURNED_OFF));
     }
 }

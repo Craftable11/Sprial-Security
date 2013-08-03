@@ -69,4 +69,10 @@ public class CommandSS extends CommandBase {
             throw new WrongUsageException(Commands.COMMAND_SS_USAGE, new Object[0]);
     }
 
+    @Override
+    public String getCommandUsage(ICommandSender icommandsender) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }
