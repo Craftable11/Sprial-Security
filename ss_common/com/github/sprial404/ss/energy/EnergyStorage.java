@@ -1,5 +1,10 @@
 package com.github.sprial404.ss.energy;
 
+import com.github.sprial404.ss.lib.Colours;
+import com.github.sprial404.ss.lib.Strings;
+
+import net.minecraft.nbt.NBTTagCompound;
+
 /**
  * Sprial-Security
  * 
@@ -10,59 +15,107 @@ package com.github.sprial404.ss.energy;
  */
 public class EnergyStorage {
 
-    public static final double BATTERY_SIZE_PER_CELL = 10.0;
-    public static final int MAX_CELLS = 4;
-
     private double amount;
-    private int cells;
 
+    private BatteryType batteryType;
+
+    private EnergyType energyType;
+    
     public EnergyStorage() {
-        this(0, 1);
+        this(BatteryType.NORMAL);
     }
-
-    public EnergyStorage(double amount) {
-        this(amount, 1);
+    public EnergyStorage(BatteryType batteryType) {
+        this(0, batteryType);
     }
-
-    public EnergyStorage(double amount, int cells) {
-        this.amount = amount < 0 ? 0 : amount;
-        this.cells = cells <= 0 || cells > MAX_CELLS ? 1 : cells;
+    public EnergyStorage(EnergyType energyType) {
+        this(0, BatteryType.NORMAL, energyType);
     }
-
-    public EnergyStorage(int cells) {
-        this(0, cells);
+    
+    public EnergyStorage(double amount, BatteryType batteryType) {
+        this(amount, batteryType, EnergyType.PLASMA);
+    }
+    
+    public EnergyStorage(double amount, BatteryType batteryType, EnergyType energyType) {
+        this.batteryType = batteryType;
+        this.energyType = energyType;
+        this.amount = amount < 0 || amount > getSize() ? 0 : amount;
     }
 
     public double addEnergy(double amount) {
-        amount = amount < 0 || amount + this.amount <= getSize() ? 0 : amount;
+        if (batteryType == BatteryType.CREATIVE)
+            return amount;
 
-        this.amount += amount;
+        if (!(amount < 0 || this.amount + amount > getSize())
+                || batteryType == BatteryType.UNKNOWN) {
+            this.amount += amount;
+            return amount;
+        }
 
-        return amount;
+        return 0;
+    }
+
+    public String getColourFromAmount() {
+        if (getPercentage() < 25)
+            return Colours.TEXT_COLOUR_PREFIX_RED;
+        else if (getPercentage() < 50)
+            return Colours.TEXT_COLOUR_PREFIX_YELLOW;
+        else if (getPercentage() < 75)
+            return Colours.TEXT_COLOUR_PREFIX_ORANGE;
+        else if (getPercentage() < 100)
+            return Colours.TEXT_COLOUR_PREFIX_GREEN;
+        return Colours.TEXT_COLOUR_PREFIX_GRAY;
+    }
+    
+    public double removeEnergy(double amount) {
+        if (batteryType == BatteryType.CREATIVE)
+            return amount;
+
+        if (!(amount < 0 || this.amount - amount < 0)
+                || batteryType == BatteryType.UNKNOWN) {
+            this.amount -= amount;
+            return amount;
+        }
+
+        return 0;
     }
 
     public double getAmount() {
         return amount;
     }
-
-    public int getCells() {
-        return cells;
+    
+    public int getPercentage() {
+        return (int) (amount / getSize() * 100);
     }
-
+    
     public double getSize() {
-        return cells * BATTERY_SIZE_PER_CELL;
+        return batteryType.size * energyType.batteryModifer;
     }
 
-    public double removeEnergy(double amount) {
-        amount = amount < 0 || amount > this.amount ? 0 : amount;
+    public EnergyType getEnergyType() {
+        return energyType;
+    }
+    
+    public BatteryType getBatteryType() {
+        return batteryType;
+    }
 
-        this.amount -= amount;
+    public NBTTagCompound writeToNBT(NBTTagCompound par1NBTTagCompound) {
+        par1NBTTagCompound.setDouble(Strings.NBT_AMOUNT, amount);
+        par1NBTTagCompound.setInteger(Strings.NBT_BATTERY_TYPE, batteryType.ordinal());
+        par1NBTTagCompound.setInteger(Strings.NBT_ENERGY_TYPE, energyType.ordinal());
 
-        return amount;
+        return par1NBTTagCompound;
+    }
+
+    public void readFromNBT(NBTTagCompound par1NBTTagCompound) {
+        amount = par1NBTTagCompound.getDouble(Strings.NBT_AMOUNT);
+        batteryType = BatteryType.getBatteryType(par1NBTTagCompound.getInteger(Strings.NBT_BATTERY_TYPE));
+        energyType = EnergyType.getEnergyType(par1NBTTagCompound.getInteger(Strings.NBT_ENERGY_TYPE));
     }
 
     @Override
     public String toString() {
-        return String.format("EnergyStorage [amount=%s, cells=%s, size=%s]", amount, cells, getSize());
+        return String.format("EnergyStorage [energy=%s, maxiumEnergy=%s, energyType=%s]",
+                getPercentage() + "%", getSize(), energyType.getName());
     }
 }

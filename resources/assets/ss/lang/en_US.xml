@@ -2,6 +2,7 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties version="1.0">
 	<comment>English (en_US) Localization File</comment>
+	<entry key="item.battery.name">Battery</entry>
 	<entry key="item.gemAgate.name">Agate Gem</entry>
 	<entry key="item.gemJadeite.name">Jadeite Gem</entry>
 	<entry key="item.gemFireOpal.name">Fire Opal Gem</entry>

@@ -16,9 +16,11 @@ public class ModItems {
 
     /* Mod item instances */
     public static Item gems;
-    
+    public static Item battery;
+
     public static void init() {
         /* Initialize each mod item individually */
         gems = new ItemGem(ItemIds.GEM);
+        battery = new ItemBattery(ItemIds.BATTERY);
     }
 }
