@@ -39,15 +39,15 @@ public class CustomWrappedStack {
      */
     public CustomWrappedStack(Object object) {
         /*
-         * If we are given an Item or a Block, convert it to an ItemStack for further inspection
+         * If we are given an Item or a Block, convert it to an ItemStack for
+         * further inspection
          */
         if (object instanceof Item) {
             object = new ItemStack((Item) object);
-        }
-        else if (object instanceof Block) {
+        } else if (object instanceof Block) {
             object = new ItemStack((Block) object);
         }
-        
+
         /*
          * We are given an ItemStack to wrap
          */
@@ -88,8 +88,7 @@ public class CustomWrappedStack {
             energyStack = null;
             stackSize = oreStack.stackSize;
             oreStack.stackSize = 1;
-        }
-        else if (object instanceof ArrayList) {
+        } else if (object instanceof ArrayList) {
 
             itemStack = null;
 
@@ -121,10 +120,9 @@ public class CustomWrappedStack {
             energyStack = (EnergyStack) object;
             stackSize = energyStack.stackSize;
             energyStack.stackSize = 1;
-        }
-        else if (object instanceof CustomWrappedStack) {
+        } else if (object instanceof CustomWrappedStack) {
             CustomWrappedStack wrappedStack = (CustomWrappedStack) object;
-            
+
             itemStack = wrappedStack.itemStack;
             oreStack = wrappedStack.oreStack;
             energyStack = wrappedStack.energyStack;
@@ -166,15 +164,12 @@ public class CustomWrappedStack {
      *         used to create this object
      */
     public Object getWrappedStack() {
-        if (itemStack != null) {
+        if (itemStack != null)
             return itemStack;
-        }
-        else if (oreStack != null) {
+        else if (oreStack != null)
             return oreStack;
-        }
-        else if (energyStack != null) {
+        else if (energyStack != null)
             return energyStack;
-        }
 
         return null;
     }
@@ -188,28 +183,35 @@ public class CustomWrappedStack {
 
         if (itemStack != null) {
             if (customWrappedStack.itemStack != null)
-                return ItemUtil.compare(itemStack, customWrappedStack.itemStack) && stackSize == customWrappedStack.itemStack.stackSize;
+                return ItemUtil
+                        .compare(itemStack, customWrappedStack.itemStack)
+                        && stackSize == customWrappedStack.itemStack.stackSize;
             else if (customWrappedStack.oreStack != null) {
-                for (ItemStack oreDictItemStack : OreDictionary.getOres(customWrappedStack.oreStack.oreName)) {
-                    if (ItemUtil.compare(itemStack, oreDictItemStack) && stackSize == customWrappedStack.stackSize)
+                for (ItemStack oreDictItemStack : OreDictionary
+                        .getOres(customWrappedStack.oreStack.oreName)) {
+                    if (ItemUtil.compare(itemStack, oreDictItemStack)
+                            && stackSize == customWrappedStack.stackSize)
                         return true;
                 }
             }
-        }
-        else if (oreStack != null) {
+        } else if (oreStack != null) {
             if (customWrappedStack.itemStack != null) {
-                for (ItemStack oreDictItemStack : OreDictionary.getOres(oreStack.oreName)) {
-                    if (ItemUtil.compare(customWrappedStack.itemStack, oreDictItemStack) && stackSize == customWrappedStack.stackSize)
+                for (ItemStack oreDictItemStack : OreDictionary
+                        .getOres(oreStack.oreName)) {
+                    if (ItemUtil.compare(customWrappedStack.itemStack,
+                            oreDictItemStack)
+                            && stackSize == customWrappedStack.stackSize)
                         return true;
                 }
-            }
-            else if (customWrappedStack.oreStack != null)
-                return oreStack.oreName.equalsIgnoreCase(customWrappedStack.oreStack.oreName) && stackSize == customWrappedStack.stackSize;
-        }
-        else if (energyStack != null) {
-            if (customWrappedStack.energyStack != null) {
-                return energyStack.energyName.equalsIgnoreCase(customWrappedStack.energyStack.energyName) && stackSize == customWrappedStack.stackSize;
-            }
+            } else if (customWrappedStack.oreStack != null)
+                return oreStack.oreName
+                        .equalsIgnoreCase(customWrappedStack.oreStack.oreName)
+                        && stackSize == customWrappedStack.stackSize;
+        } else if (energyStack != null) {
+            if (customWrappedStack.energyStack != null)
+                return energyStack.energyName
+                        .equalsIgnoreCase(customWrappedStack.energyStack.energyName)
+                        && stackSize == customWrappedStack.stackSize;
         }
 
         return false;
@@ -220,32 +222,37 @@ public class CustomWrappedStack {
         StringBuilder stringBuilder = new StringBuilder();
 
         if (itemStack != null) {
-            stringBuilder.append(String.format("%sxitemStack[%s:%s:%s:%s]", this.stackSize, itemStack.itemID, itemStack.getItemDamage(), itemStack.getItemName(), itemStack.getItem().getClass().getCanonicalName()));
-        }
-        else if (oreStack != null) {
-            stringBuilder.append(String.format("%dxoreDictionary.%s", stackSize, oreStack.oreName));
-        }
-        else if (energyStack != null) {
-            stringBuilder.append(String.format("%dxenergyStack.%s", stackSize, energyStack.energyName));
-        }
-        else {
+            stringBuilder.append(String.format("%sxitemStack[%s:%s:%s:%s]",
+                    stackSize, itemStack.itemID, itemStack.getItemDamage(),
+                    itemStack.getItemName(), itemStack.getItem().getClass()
+                            .getCanonicalName()));
+        } else if (oreStack != null) {
+            stringBuilder.append(String.format("%dxoreDictionary.%s",
+                    stackSize, oreStack.oreName));
+        } else if (energyStack != null) {
+            stringBuilder.append(String.format("%dxenergyStack.%s", stackSize,
+                    energyStack.energyName));
+        } else {
             stringBuilder.append("null");
         }
 
         return stringBuilder.toString();
     }
-    
+
     public String encodeAsPropertyKey() {
         StringBuilder stringBuilder = new StringBuilder();
 
         if (itemStack != null) {
-            stringBuilder.append(String.format("%sxitemStack[%s:%s:%s:%s]", this.stackSize, itemStack.itemID, itemStack.getItemDamage(), itemStack.getItemName(), itemStack.getItem().getClass().getCanonicalName()));
-        }
-        else if (oreStack != null) {
-            stringBuilder.append(String.format("%dxoreDictionary.%s", stackSize, oreStack.oreName));
-        }
-        else if (energyStack != null) {
-            stringBuilder.append(String.format("%dxenergyStack.%s", stackSize, energyStack.energyName));
+            stringBuilder.append(String.format("%sxitemStack[%s:%s:%s:%s]",
+                    stackSize, itemStack.itemID, itemStack.getItemDamage(),
+                    itemStack.getItemName(), itemStack.getItem().getClass()
+                            .getCanonicalName()));
+        } else if (oreStack != null) {
+            stringBuilder.append(String.format("%dxoreDictionary.%s",
+                    stackSize, oreStack.oreName));
+        } else if (energyStack != null) {
+            stringBuilder.append(String.format("%dxenergyStack.%s", stackSize,
+                    energyStack.energyName));
         }
 
         return stringBuilder.toString();
@@ -262,28 +269,28 @@ public class CustomWrappedStack {
 
             if (itemStack.getItemDamage() == OreDictionary.WILDCARD_VALUE) {
                 hashCode = 37 * hashCode;
-            }
-            else {
+            } else {
                 hashCode = 37 * hashCode + itemStack.getItemDamage();
             }
 
             try {
                 hashCode = 37 * hashCode + itemStack.getItemName().hashCode();
-            } catch (ArrayIndexOutOfBoundsException e) { 
-                
+            } catch (ArrayIndexOutOfBoundsException e) {
+
             }
-        }
-        else if (oreStack != null) {
+        } else if (oreStack != null) {
             hashCode = 37 * hashCode + oreStack.oreName.hashCode();
-        }
-        else if (energyStack != null) {
+        } else if (energyStack != null) {
             hashCode = 37 * hashCode + energyStack.energyName.hashCode();
         }
 
         return hashCode;
     }
-    
+
     public static boolean canBeWrapped(Object object) {
-        return (object instanceof CustomWrappedStack || object instanceof ItemStack || object instanceof OreStack || object instanceof EnergyStack || object instanceof Item || object instanceof Block);
+        return object instanceof CustomWrappedStack
+                || object instanceof ItemStack || object instanceof OreStack
+                || object instanceof EnergyStack || object instanceof Item
+                || object instanceof Block;
     }
 }

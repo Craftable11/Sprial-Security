@@ -31,14 +31,16 @@ public abstract class BlockSS extends BlockContainer {
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister par1IconRegister) {
-        blockIcon = par1IconRegister.registerIcon(Reference.MOD_ID.toLowerCase() + getUnwrappedUnlocalizedName(getUnlocalizedName()));
+        blockIcon = par1IconRegister.registerIcon(Reference.MOD_ID
+                .toLowerCase()
+                + getUnwrappedUnlocalizedName(getUnlocalizedName()));
     }
-    
+
     protected String getUnwrappedUnlocalizedName(String unlocalizedName) {
-        
+
         return unlocalizedName.substring(unlocalizedName.indexOf(".") + 1);
     }
-    
+
     /**
      * Sets the direction of the block when placed
      */
@@ -46,23 +48,21 @@ public abstract class BlockSS extends BlockContainer {
     public void onBlockPlacedBy(World par1World, int par2, int par3, int par4,
             EntityLivingBase par5EntityLiving, ItemStack par6ItemStack) {
         int direction = 0;
-        int facing = MathHelper.floor_double(par5EntityLiving.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
-        
+        int facing = MathHelper
+                .floor_double(par5EntityLiving.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
+
         if (facing == 0) {
             direction = ForgeDirection.NORTH.ordinal();
-        }
-        else if (facing == 1) {
+        } else if (facing == 1) {
             direction = ForgeDirection.EAST.ordinal();
-        }
-        else if (facing == 2){
+        } else if (facing == 2) {
             direction = ForgeDirection.SOUTH.ordinal();
-        }
-        else if (facing == 3) {
+        } else if (facing == 3) {
             direction = ForgeDirection.WEST.ordinal();
         }
-        
+
         par1World.setBlockMetadataWithNotify(par2, par3, par4, direction, 3);
-        
+
         par1World.getBlockTileEntity(par2, par3, par4);
     }
 }

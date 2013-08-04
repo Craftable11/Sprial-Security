@@ -40,7 +40,8 @@ public class VersionHelper implements Runnable {
     public static final byte FINAL_ERROR = 4;
     public static final byte MC_VERSION_NOT_FOUND = 5;
 
-    // Var to hold the result of the remote version check, initially set to uninitialized
+    // Var to hold the result of the remote version check, initially set to
+    // uninitialized
     private static byte result = UNINITIALIZED;
     public static String remoteVersion = null;
     public static String remoteUpdateLocation = null;
@@ -60,41 +61,42 @@ public class VersionHelper implements Runnable {
             remoteVersionRepoStream = remoteVersionURL.openStream();
             remoteVersionProperties.loadFromXML(remoteVersionRepoStream);
 
-            String remoteVersionProperty = remoteVersionProperties.getProperty(Loader.instance().getMCVersionString());
+            String remoteVersionProperty = remoteVersionProperties
+                    .getProperty(Loader.instance().getMCVersionString());
 
             if (remoteVersionProperty != null) {
-                String[] remoteVersionTokens = remoteVersionProperty.split("\\|");
+                String[] remoteVersionTokens = remoteVersionProperty
+                        .split("\\|");
 
                 if (remoteVersionTokens.length >= 2) {
                     remoteVersion = remoteVersionTokens[0];
                     remoteUpdateLocation = remoteVersionTokens[1];
-                }
-                else {
+                } else {
                     result = ERROR;
                 }
 
                 if (remoteVersion != null) {
-                    if (!ConfigurationSettings.LAST_DISCOVERED_VERSION.equalsIgnoreCase(remoteVersion)) {
-                        ConfigurationHandler.set(Configuration.CATEGORY_GENERAL, ConfigurationSettings.LAST_DISCOVERED_VERSION_CONFIGNAME, remoteVersion);
+                    if (!ConfigurationSettings.LAST_DISCOVERED_VERSION
+                            .equalsIgnoreCase(remoteVersion)) {
+                        ConfigurationHandler
+                                .set(Configuration.CATEGORY_GENERAL,
+                                        ConfigurationSettings.LAST_DISCOVERED_VERSION_CONFIGNAME,
+                                        remoteVersion);
                     }
 
                     if (remoteVersion.equalsIgnoreCase(getVersionForCheck())) {
                         result = CURRENT;
-                    }
-                    else {
+                    } else {
                         result = OUTDATED;
                     }
                 }
 
-            }
-            else {
+            } else {
                 result = MC_VERSION_NOT_FOUND;
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace(System.err);
-        }
-        finally {
+        } finally {
             if (result == UNINITIALIZED) {
                 result = ERROR;
             }
@@ -103,8 +105,7 @@ public class VersionHelper implements Runnable {
                 if (remoteVersionRepoStream != null) {
                     remoteVersionRepoStream.close();
                 }
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
             }
         }
     }
@@ -123,8 +124,7 @@ public class VersionHelper implements Runnable {
 
         if (result == CURRENT || result == OUTDATED) {
             LogHelper.info(getResultMessage());
-        }
-        else {
+        } else {
             LogHelper.warning(getResultMessage());
         }
     }
@@ -132,52 +132,81 @@ public class VersionHelper implements Runnable {
     public static String getResultMessage() {
 
         if (result == UNINITIALIZED)
-            return LanguageRegistry.instance().getStringLocalization(Strings.UNINITIALIZED_MESSAGE);
+            return LanguageRegistry.instance().getStringLocalization(
+                    Strings.UNINITIALIZED_MESSAGE);
         else if (result == CURRENT) {
-            String returnString = LanguageRegistry.instance().getStringLocalization(Strings.CURRENT_MESSAGE);
-            returnString = returnString.replace("@REMOTE_MOD_VERSION@", remoteVersion);
-            returnString = returnString.replace("@MINECRAFT_VERSION@", Loader.instance().getMCVersionString());
+            String returnString = LanguageRegistry.instance()
+                    .getStringLocalization(Strings.CURRENT_MESSAGE);
+            returnString = returnString.replace("@REMOTE_MOD_VERSION@",
+                    remoteVersion);
+            returnString = returnString.replace("@MINECRAFT_VERSION@", Loader
+                    .instance().getMCVersionString());
             return returnString;
-        }
-        else if (result == OUTDATED && remoteVersion != null && remoteUpdateLocation != null) {
-            String returnString = LanguageRegistry.instance().getStringLocalization(Strings.OUTDATED_MESSAGE);
-            returnString = returnString.replace("@MOD_NAME@", Reference.MOD_NAME);
-            returnString = returnString.replace("@REMOTE_MOD_VERSION@", remoteVersion);
-            returnString = returnString.replace("@MINECRAFT_VERSION@", Loader.instance().getMCVersionString());
-            returnString = returnString.replace("@MOD_UPDATE_LOCATION@", remoteUpdateLocation);
+        } else if (result == OUTDATED && remoteVersion != null
+                && remoteUpdateLocation != null) {
+            String returnString = LanguageRegistry.instance()
+                    .getStringLocalization(Strings.OUTDATED_MESSAGE);
+            returnString = returnString.replace("@MOD_NAME@",
+                    Reference.MOD_NAME);
+            returnString = returnString.replace("@REMOTE_MOD_VERSION@",
+                    remoteVersion);
+            returnString = returnString.replace("@MINECRAFT_VERSION@", Loader
+                    .instance().getMCVersionString());
+            returnString = returnString.replace("@MOD_UPDATE_LOCATION@",
+                    remoteUpdateLocation);
             return returnString;
-        }
-        else if (result == OUTDATED && remoteVersion != null && remoteUpdateLocation != null) {
-            String returnString = LanguageRegistry.instance().getStringLocalization(Strings.OUTDATED_MESSAGE);
-            returnString = returnString.replace("@MOD_NAME@", Reference.MOD_NAME);
-            returnString = returnString.replace("@REMOTE_MOD_VERSION@", remoteVersion);
-            returnString = returnString.replace("@MINECRAFT_VERSION@", Loader.instance().getMCVersionString());
-            returnString = returnString.replace("@MOD_UPDATE_LOCATION@", remoteUpdateLocation);
+        } else if (result == OUTDATED && remoteVersion != null
+                && remoteUpdateLocation != null) {
+            String returnString = LanguageRegistry.instance()
+                    .getStringLocalization(Strings.OUTDATED_MESSAGE);
+            returnString = returnString.replace("@MOD_NAME@",
+                    Reference.MOD_NAME);
+            returnString = returnString.replace("@REMOTE_MOD_VERSION@",
+                    remoteVersion);
+            returnString = returnString.replace("@MINECRAFT_VERSION@", Loader
+                    .instance().getMCVersionString());
+            returnString = returnString.replace("@MOD_UPDATE_LOCATION@",
+                    remoteUpdateLocation);
             return returnString;
-        }
-        else if (result == ERROR)
-            return LanguageRegistry.instance().getStringLocalization(Strings.GENERAL_ERROR_MESSAGE);
+        } else if (result == ERROR)
+            return LanguageRegistry.instance().getStringLocalization(
+                    Strings.GENERAL_ERROR_MESSAGE);
         else if (result == FINAL_ERROR)
-            return LanguageRegistry.instance().getStringLocalization(Strings.FINAL_ERROR_MESSAGE);
+            return LanguageRegistry.instance().getStringLocalization(
+                    Strings.FINAL_ERROR_MESSAGE);
         else if (result == MC_VERSION_NOT_FOUND) {
-            String returnString = LanguageRegistry.instance().getStringLocalization(Strings.MC_VERSION_NOT_FOUND);
-            returnString = returnString.replace("@MOD_NAME@", Reference.MOD_NAME);
-            returnString = returnString.replace("@MINECRAFT_VERSION@", Loader.instance().getMCVersionString());
+            String returnString = LanguageRegistry.instance()
+                    .getStringLocalization(Strings.MC_VERSION_NOT_FOUND);
+            returnString = returnString.replace("@MOD_NAME@",
+                    Reference.MOD_NAME);
+            returnString = returnString.replace("@MINECRAFT_VERSION@", Loader
+                    .instance().getMCVersionString());
             return returnString;
-        }
-        else {
+        } else {
             result = ERROR;
-            return LanguageRegistry.instance().getStringLocalization(Strings.GENERAL_ERROR_MESSAGE);
+            return LanguageRegistry.instance().getStringLocalization(
+                    Strings.GENERAL_ERROR_MESSAGE);
         }
     }
 
     public static String getResultMessageForClient() {
 
-        String returnString = LanguageRegistry.instance().getStringLocalization(Strings.OUTDATED_MESSAGE);
-        returnString = returnString.replace("@MOD_NAME@", Colours.TEXT_COLOUR_PREFIX_YELLOW + Reference.MOD_NAME + Colours.TEXT_COLOUR_PREFIX_WHITE);
-        returnString = returnString.replace("@REMOTE_MOD_VERSION@", Colours.TEXT_COLOUR_PREFIX_YELLOW + VersionHelper.remoteVersion + Colours.TEXT_COLOUR_PREFIX_WHITE);
-        returnString = returnString.replace("@MINECRAFT_VERSION@", Colours.TEXT_COLOUR_PREFIX_YELLOW + Loader.instance().getMCVersionString() + Colours.TEXT_COLOUR_PREFIX_WHITE);
-        returnString = returnString.replace("@MOD_UPDATE_LOCATION@", Colours.TEXT_COLOUR_PREFIX_YELLOW + VersionHelper.remoteUpdateLocation + Colours.TEXT_COLOUR_PREFIX_WHITE);
+        String returnString = LanguageRegistry.instance()
+                .getStringLocalization(Strings.OUTDATED_MESSAGE);
+        returnString = returnString.replace("@MOD_NAME@",
+                Colours.TEXT_COLOUR_PREFIX_YELLOW + Reference.MOD_NAME
+                        + Colours.TEXT_COLOUR_PREFIX_WHITE);
+        returnString = returnString.replace("@REMOTE_MOD_VERSION@",
+                Colours.TEXT_COLOUR_PREFIX_YELLOW + VersionHelper.remoteVersion
+                        + Colours.TEXT_COLOUR_PREFIX_WHITE);
+        returnString = returnString.replace("@MINECRAFT_VERSION@",
+                Colours.TEXT_COLOUR_PREFIX_YELLOW
+                        + Loader.instance().getMCVersionString()
+                        + Colours.TEXT_COLOUR_PREFIX_WHITE);
+        returnString = returnString.replace("@MOD_UPDATE_LOCATION@",
+                Colours.TEXT_COLOUR_PREFIX_YELLOW
+                        + VersionHelper.remoteUpdateLocation
+                        + Colours.TEXT_COLOUR_PREFIX_WHITE);
         return returnString;
     }
 
@@ -191,10 +220,13 @@ public class VersionHelper implements Runnable {
 
         int count = 0;
 
-        LogHelper.info(LanguageRegistry.instance().getStringLocalization(Strings.VERSION_CHECK_INIT_LOG_MESSAGE) + " " + REMOTE_VERSION_XML_FILE);
+        LogHelper.info(LanguageRegistry.instance().getStringLocalization(
+                Strings.VERSION_CHECK_INIT_LOG_MESSAGE)
+                + " " + REMOTE_VERSION_XML_FILE);
 
         try {
-            while (count < Reference.VERSION_CHECK_ATTEMPTS - 1 && (result == UNINITIALIZED || result == ERROR)) {
+            while (count < Reference.VERSION_CHECK_ATTEMPTS - 1
+                    && (result == UNINITIALIZED || result == ERROR)) {
 
                 checkVersion();
                 count++;
@@ -209,8 +241,7 @@ public class VersionHelper implements Runnable {
                 result = FINAL_ERROR;
                 logResult();
             }
-        }
-        catch (InterruptedException e) {
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
 

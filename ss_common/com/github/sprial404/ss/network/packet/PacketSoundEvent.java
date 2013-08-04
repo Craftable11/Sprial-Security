@@ -34,7 +34,8 @@ public class PacketSoundEvent extends PacketSS {
         super(PacketTypeHandler.SOUND_EVENT, false);
     }
 
-    public PacketSoundEvent(String playerName, String soundName, double x, double y, double z, float volume, float pitch) {
+    public PacketSoundEvent(String playerName, String soundName, double x,
+            double y, double z, float volume, float pitch) {
 
         super(PacketTypeHandler.SOUND_EVENT, false);
         this.playerName = playerName;
@@ -76,11 +77,14 @@ public class PacketSoundEvent extends PacketSS {
         EntityPlayer thePlayer = (EntityPlayer) player;
 
         if (ConfigurationSettings.ENABLE_SOUNDS.equalsIgnoreCase(Commands.ALL)) {
-            FMLClientHandler.instance().getClient().sndManager.playSound(soundName, (float) x, (float) y, (float) z, volume, pitch);
-        }
-        else if (ConfigurationSettings.ENABLE_SOUNDS.equalsIgnoreCase(Commands.SELF)) {
+            FMLClientHandler.instance().getClient().sndManager.playSound(
+                    soundName, (float) x, (float) y, (float) z, volume, pitch);
+        } else if (ConfigurationSettings.ENABLE_SOUNDS
+                .equalsIgnoreCase(Commands.SELF)) {
             if (thePlayer.username.equalsIgnoreCase(playerName)) {
-                FMLClientHandler.instance().getClient().sndManager.playSound(soundName, (float) x, (float) y, (float) z, volume, pitch);
+                FMLClientHandler.instance().getClient().sndManager.playSound(
+                        soundName, (float) x, (float) y, (float) z, volume,
+                        pitch);
             }
         }
     }

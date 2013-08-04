@@ -31,7 +31,8 @@ public class PacketSpawnParticle extends PacketSS {
         super(PacketTypeHandler.SPAWN_PARTICLE, false);
     }
 
-    public PacketSpawnParticle(String particleName, double x, double y, double z, double velocityX, double velocityY, double velocityZ) {
+    public PacketSpawnParticle(String particleName, double x, double y,
+            double z, double velocityX, double velocityY, double velocityZ) {
 
         super(PacketTypeHandler.SPAWN_PARTICLE, false);
         this.particleName = particleName;
@@ -75,7 +76,8 @@ public class PacketSpawnParticle extends PacketSS {
         EntityPlayer thePlayer = (EntityPlayer) player;
 
         if (ConfigurationSettings.ENABLE_PARTICLE_FX) {
-            thePlayer.worldObj.spawnParticle(particleName, x, y, z, velocityX, velocityY, velocityZ);
+            thePlayer.worldObj.spawnParticle(particleName, x, y, z, velocityX,
+                    velocityY, velocityZ);
         }
     }
 }

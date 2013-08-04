@@ -1,9 +1,6 @@
 package com.github.sprial404.ss.core.trackers;
 
 import net.minecraft.entity.player.EntityPlayer;
-
-import com.github.sprial404.ss.core.util.FingerprintHelper;
-
 import cpw.mods.fml.common.IPlayerTracker;
 
 /**
@@ -15,18 +12,21 @@ import cpw.mods.fml.common.IPlayerTracker;
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
 public class PlayerTracker implements IPlayerTracker {
-    
+
     @Override
     public void onPlayerLogin(EntityPlayer player) {
-        FingerprintHelper.onPlayerLogin(player);
+        
     }
 
     @Override
-    public void onPlayerLogout(EntityPlayer player) { }
+    public void onPlayerLogout(EntityPlayer player) {
+    }
 
     @Override
-    public void onPlayerChangedDimension(EntityPlayer player) { }
+    public void onPlayerChangedDimension(EntityPlayer player) {
+    }
 
     @Override
-    public void onPlayerRespawn(EntityPlayer player) { }
+    public void onPlayerRespawn(EntityPlayer player) {
+    }
 }

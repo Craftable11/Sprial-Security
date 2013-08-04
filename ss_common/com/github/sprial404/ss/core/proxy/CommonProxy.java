@@ -22,7 +22,7 @@ public class CommonProxy implements IGuiHandler {
     public void registerTrackers() {
         GameRegistry.registerPlayerTracker(new PlayerTracker());
     }
-    
+
     public void registerKeyBindingHandler() {
 
     }
@@ -51,25 +51,32 @@ public class CommonProxy implements IGuiHandler {
         // Register Server Tile Entities Here
     }
 
-    public void sendRequestEventPacket(byte eventType, int originX, int originY, int originZ, byte sideHit, byte rangeX, byte rangeY, byte rangeZ, String data) {
+    public void sendRequestEventPacket(byte eventType, int originX,
+            int originY, int originZ, byte sideHit, byte rangeX, byte rangeY,
+            byte rangeZ, String data) {
 
     }
 
-    public void handleTileEntityPacket(int x, int y, int z, ForgeDirection orientation, byte state, String customName) {
+    public void handleTileEntityPacket(int x, int y, int z,
+            ForgeDirection orientation, byte state, String customName) {
 
     }
 
-    public void handleTileWithItemPacket(int x, int y, int z, ForgeDirection orientation, byte state, String customName, int itemID, int metaData, int stackSize, int color) {
+    public void handleTileWithItemPacket(int x, int y, int z,
+            ForgeDirection orientation, byte state, String customName,
+            int itemID, int metaData, int stackSize, int color) {
 
     }
 
     @Override
-    public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+    public Object getServerGuiElement(int ID, EntityPlayer player, World world,
+            int x, int y, int z) {
         return null;
     }
 
     @Override
-    public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+    public Object getClientGuiElement(int ID, EntityPlayer player, World world,
+            int x, int y, int z) {
         return null;
     }
 }

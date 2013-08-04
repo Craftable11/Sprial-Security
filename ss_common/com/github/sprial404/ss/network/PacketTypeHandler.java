@@ -26,20 +26,17 @@ import com.github.sprial404.ss.network.packet.PacketTileWithItemUpdate;
  */
 public enum PacketTypeHandler {
 
-    KEY(PacketKeyPressed.class),
-    TILE(PacketTileUpdate.class),
-    REQUEST_EVENT(PacketRequestEvent.class),
-    SPAWN_PARTICLE(PacketSpawnParticle.class),
-    SOUND_EVENT(PacketSoundEvent.class),
-    ITEM_UPDATE(PacketItemUpdate.class),
-    TILE_WITH_ITEM(PacketTileWithItemUpdate.class);
-    
+    KEY(PacketKeyPressed.class), TILE(PacketTileUpdate.class), REQUEST_EVENT(
+            PacketRequestEvent.class), SPAWN_PARTICLE(PacketSpawnParticle.class), SOUND_EVENT(
+            PacketSoundEvent.class), ITEM_UPDATE(PacketItemUpdate.class), TILE_WITH_ITEM(
+            PacketTileWithItemUpdate.class);
+
     private Class<? extends PacketSS> clazz;
-    
+
     private PacketTypeHandler(Class<? extends PacketSS> clazz) {
         this.clazz = clazz;
     }
-    
+
     public static PacketSS buildPacket(byte[] data) {
 
         ByteArrayInputStream bis = new ByteArrayInputStream(data);
@@ -50,8 +47,7 @@ public enum PacketTypeHandler {
 
         try {
             packet = values()[selector].clazz.newInstance();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace(System.err);
         }
 
@@ -66,8 +62,7 @@ public enum PacketTypeHandler {
 
         try {
             packet = values()[type.ordinal()].clazz.newInstance();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace(System.err);
         }
 

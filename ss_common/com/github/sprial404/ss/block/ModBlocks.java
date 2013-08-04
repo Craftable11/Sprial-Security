@@ -23,20 +23,23 @@ public class ModBlocks {
     /* Mod block instances */
     public static Block gemOre;
     public static Block machineStructure;
-    
+
     public static void init() {
         gemOre = new BlockGemOre(BlockIds.GEM_ORE);
         machineStructure = new BlockMachineStructure(BlockIds.MACHINE_STRUCTURE);
-        
-        GameRegistry.registerBlock(gemOre, ItemBlockGemOre.class, Strings.GEM_ORE_NAME);
-        GameRegistry.registerBlock(machineStructure, Strings.MACHINE_STRUCTURE_NAME);
-        
+
+        GameRegistry.registerBlock(gemOre, ItemBlockGemOre.class,
+                Strings.GEM_ORE_NAME);
+        GameRegistry.registerBlock(machineStructure,
+                Strings.MACHINE_STRUCTURE_NAME);
+
         MinecraftForge.setBlockHarvestLevel(gemOre, ToolClass.PICKAXE, 2);
-        MinecraftForge.setBlockHarvestLevel(machineStructure, ToolClass.PICKAXE, 2);
-        
+        MinecraftForge.setBlockHarvestLevel(machineStructure,
+                ToolClass.PICKAXE, 2);
+
         initBlockRecipes();
     }
-    
+
     private static void initBlockRecipes() {
     }
 }

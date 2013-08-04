@@ -12,22 +12,24 @@ import cpw.mods.fml.common.TickType;
 
 public class PlayerMovementTickHandler implements ITickHandler {
 
-    
-    
     @Override
-    public void tickStart(EnumSet<TickType> type, Object... tickData) { }
+    public void tickStart(EnumSet<TickType> type, Object... tickData) {
+    }
 
     @Override
     public void tickEnd(EnumSet<TickType> type, Object... tickData) {
         for (TickType tickType : type)
             if (tickType == TickType.PLAYER) {
                 EntityPlayer player = null;
-                
+
                 if (!(tickData[0] instanceof EntityPlayer))
                     return;
                 player = (EntityPlayer) tickData[0];
-                
-                LogHelper.debug(String.format("%s is at %s, %s, %s in Dimension: %s.", player.username, player.posX, player.posY, player.posZ, player.dimension));
+
+                LogHelper.debug(String.format(
+                        "%s is at %s, %s, %s in Dimension: %s.",
+                        player.username, player.posX, player.posY, player.posZ,
+                        player.dimension));
             }
 
     }

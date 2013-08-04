@@ -18,7 +18,7 @@ public class CreativeTabSS extends CreativeTabs {
     public CreativeTabSS(int par1, String par2Str) {
         super(par1, par2Str);
     }
-    
+
     @Override
     @SideOnly(Side.CLIENT)
     /**

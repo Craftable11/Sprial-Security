@@ -26,21 +26,22 @@ public class PacketTileUpdate extends PacketSS {
     public byte orientation;
     public byte state;
     public String customName;
-    
+
     public PacketTileUpdate() {
         super(PacketTypeHandler.TILE, true);
     }
-    
-    public PacketTileUpdate(int x, int y, int z, ForgeDirection orientation, byte state, String customName) {
-       super(PacketTypeHandler.TILE, true);
-       this.x = x;
-       this.y = y;
-       this.z = z;
-       this.orientation = (byte) orientation.ordinal();
-       this.state = state;
-       this.customName = customName;
+
+    public PacketTileUpdate(int x, int y, int z, ForgeDirection orientation,
+            byte state, String customName) {
+        super(PacketTypeHandler.TILE, true);
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.orientation = (byte) orientation.ordinal();
+        this.state = state;
+        this.customName = customName;
     }
-    
+
     @Override
     public void writeData(DataOutputStream data) throws IOException {
         data.writeInt(x);
@@ -50,7 +51,7 @@ public class PacketTileUpdate extends PacketSS {
         data.writeByte(state);
         data.writeUTF(customName);
     }
-    
+
     @Override
     public void readData(DataInputStream data) throws IOException {
         x = data.readInt();
@@ -60,10 +61,11 @@ public class PacketTileUpdate extends PacketSS {
         state = data.readByte();
         customName = data.readUTF();
     }
-    
+
     @Override
     public void execute(INetworkManager manager, Player player) {
 
-        SprialSecurity.proxy.handleTileEntityPacket(x, y, z, ForgeDirection.getOrientation(orientation), state, customName);
+        SprialSecurity.proxy.handleTileEntityPacket(x, y, z,
+                ForgeDirection.getOrientation(orientation), state, customName);
     }
 }

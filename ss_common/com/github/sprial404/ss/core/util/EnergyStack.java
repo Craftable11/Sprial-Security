@@ -37,7 +37,8 @@ public class EnergyStack {
 
         StringBuilder stringBuilder = new StringBuilder();
 
-        stringBuilder.append(String.format("%dxenergyStack.%s", stackSize, energyName));
+        stringBuilder.append(String.format("%dxenergyStack.%s", stackSize,
+                energyName));
 
         return stringBuilder.toString();
     }
@@ -45,12 +46,12 @@ public class EnergyStack {
     @Override
     public boolean equals(Object object) {
 
-        if (!(object instanceof EnergyStack)) {
+        if (!(object instanceof EnergyStack))
             return false;
-        }
 
         EnergyStack energyStack = (EnergyStack) object;
 
-        return (this.stackSize == energyStack.stackSize && this.energyName.equalsIgnoreCase(energyStack.energyName));
+        return stackSize == energyStack.stackSize
+                && energyName.equalsIgnoreCase(energyStack.energyName);
     }
 }

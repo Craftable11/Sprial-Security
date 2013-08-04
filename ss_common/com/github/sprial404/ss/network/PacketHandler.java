@@ -19,8 +19,8 @@ import cpw.mods.fml.common.network.Player;
 public class PacketHandler implements IPacketHandler {
 
     /***
-     * Handles Packet250CustomPayload packets that are registered to an
-     * Sprial Security network channel
+     * Handles Packet250CustomPayload packets that are registered to an Sprial
+     * Security network channel
      * 
      * @param manager
      *            The NetworkManager associated with the current platform
@@ -33,7 +33,8 @@ public class PacketHandler implements IPacketHandler {
     @Override
     public void onPacketData(INetworkManager manager,
             Packet250CustomPayload packet, Player player) {
-        // Build a PacketSS object from the data contained within the Packet250CustomPayload packet
+        // Build a PacketSS object from the data contained within the
+        // Packet250CustomPayload packet
         PacketSS packetSS = PacketTypeHandler.buildPacket(packet.data);
 
         // Execute the appropriate actions based on the PacketSS type

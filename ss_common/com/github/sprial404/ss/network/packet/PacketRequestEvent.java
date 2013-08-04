@@ -30,7 +30,9 @@ public class PacketRequestEvent extends PacketSS {
         super(PacketTypeHandler.REQUEST_EVENT, false);
     }
 
-    public PacketRequestEvent(byte eventType, int originX, int originY, int originZ, byte sideHit, byte rangeX, byte rangeY, byte rangeZ, String data) {
+    public PacketRequestEvent(byte eventType, int originX, int originY,
+            int originZ, byte sideHit, byte rangeX, byte rangeY, byte rangeZ,
+            String data) {
         super(PacketTypeHandler.REQUEST_EVENT, false);
         this.eventType = eventType;
         this.originX = originX;
@@ -71,6 +73,6 @@ public class PacketRequestEvent extends PacketSS {
 
     @Override
     public void execute(INetworkManager manager, Player player) {
-        
+
     }
 }

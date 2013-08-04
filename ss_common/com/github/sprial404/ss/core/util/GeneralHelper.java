@@ -17,7 +17,7 @@ import net.minecraft.item.ItemStack;
  * @license Lesser GNU Public License v3 (http://www.gnu.org/licenses/lgpl.html)
  */
 public class GeneralHelper {
-    
+
     public static ItemStack convertObjectToItemStack(Object obj) {
 
         if (obj instanceof Item)

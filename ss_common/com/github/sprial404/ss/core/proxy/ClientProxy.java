@@ -33,12 +33,12 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void registerRenderTickHandler() {
-        
+
     }
 
     @Override
     public void registerDrawBlockHighlightHandler() {
-        
+
     }
 
     @Override
@@ -56,7 +56,7 @@ public class ClientProxy extends CommonProxy {
 
     @Override
     public void initRenderingAndTextures() {
-        
+
     }
 
     @Override
@@ -65,14 +65,22 @@ public class ClientProxy extends CommonProxy {
     }
 
     @Override
-    public void sendRequestEventPacket(byte eventType, int originX, int originY, int originZ, byte sideHit, byte rangeX, byte rangeY, byte rangeZ, String data) {
-        PacketDispatcher.sendPacketToServer(PacketTypeHandler.populatePacket(new PacketRequestEvent(eventType, originX, originY, originZ, sideHit, rangeX, rangeY, rangeZ, data)));
+    public void sendRequestEventPacket(byte eventType, int originX,
+            int originY, int originZ, byte sideHit, byte rangeX, byte rangeY,
+            byte rangeZ, String data) {
+        PacketDispatcher
+                .sendPacketToServer(PacketTypeHandler
+                        .populatePacket(new PacketRequestEvent(eventType,
+                                originX, originY, originZ, sideHit, rangeX,
+                                rangeY, rangeZ, data)));
     }
 
     @Override
-    public void handleTileEntityPacket(int x, int y, int z, ForgeDirection orientation, byte state, String customName) {
+    public void handleTileEntityPacket(int x, int y, int z,
+            ForgeDirection orientation, byte state, String customName) {
 
-        TileEntity tileEntity = FMLClientHandler.instance().getClient().theWorld.getBlockTileEntity(x, y, z);
+        TileEntity tileEntity = FMLClientHandler.instance().getClient().theWorld
+                .getBlockTileEntity(x, y, z);
 
         if (tileEntity != null) {
             if (tileEntity instanceof TileSS) {
@@ -84,7 +92,9 @@ public class ClientProxy extends CommonProxy {
     }
 
     @Override
-    public void handleTileWithItemPacket(int x, int y, int z, ForgeDirection orientation, byte state, String customName, int itemID, int metaData, int stackSize, int color) {
+    public void handleTileWithItemPacket(int x, int y, int z,
+            ForgeDirection orientation, byte state, String customName,
+            int itemID, int metaData, int stackSize, int color) {
 
         World world = FMLClientHandler.instance().getClient().theWorld;
         TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
@@ -92,7 +102,7 @@ public class ClientProxy extends CommonProxy {
         this.handleTileEntityPacket(x, y, z, orientation, state, customName);
 
         if (tileEntity != null) {
-            
+
         }
     }
 }

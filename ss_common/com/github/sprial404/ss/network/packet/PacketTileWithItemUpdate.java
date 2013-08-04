@@ -33,7 +33,9 @@ public class PacketTileWithItemUpdate extends PacketSS {
         super(PacketTypeHandler.TILE_WITH_ITEM, true);
     }
 
-    public PacketTileWithItemUpdate(int x, int y, int z, ForgeDirection orientation, byte state, String customName, int itemID, int metaData, int stackSize, int color) {
+    public PacketTileWithItemUpdate(int x, int y, int z,
+            ForgeDirection orientation, byte state, String customName,
+            int itemID, int metaData, int stackSize, int color) {
 
         super(PacketTypeHandler.TILE_WITH_ITEM, true);
         this.x = x;
@@ -81,6 +83,8 @@ public class PacketTileWithItemUpdate extends PacketSS {
     @Override
     public void execute(INetworkManager manager, Player player) {
 
-        SprialSecurity.proxy.handleTileWithItemPacket(x, y, z, ForgeDirection.getOrientation(orientation), state, customName, itemID, metaData, stackSize, color);
+        SprialSecurity.proxy.handleTileWithItemPacket(x, y, z,
+                ForgeDirection.getOrientation(orientation), state, customName,
+                itemID, metaData, stackSize, color);
     }
 }

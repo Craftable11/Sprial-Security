@@ -24,21 +24,21 @@ public class ConfigurationSettings {
     public static String LAST_DISCOVERED_VERSION_TYPE;
     public static final String LAST_DISCOVERED_VERSION_TYPE_CONFIGNAME = "version_check.last_discovered_version_type";
     public static final String LAST_DISCOVERED_VERSION_TYPE_DEFAULT = "";
-    
+
     /*
      * Fingerprint settings
      */
     public static int FINGERPRINT_LENGTH;
     public static final String FINGERPRINT_LENGTH_CONFIGNAME = "fingerprint.length";
     public static final int FINGERPRINT_LENGTH_DEFAULT = 20;
-    
+
     /*
      * Audio config settings
      */
     public static String ENABLE_SOUNDS;
     public static final String ENABLE_SOUNDS_CONFIGNAME = "sounds.enabled";
     public static final String ENABLE_SOUNDS_DEFAULT = "all";
-    
+
     /*
      * Graphic config settings
      */
@@ -46,7 +46,7 @@ public class ConfigurationSettings {
     public static boolean ENABLE_PARTICLE_FX;
     public static final String ENABLE_PARTICLE_FX_CONFIGNAME = "particle_fx.enabled";
     public static final boolean ENABLE_PARTICLE_FX_DEFAULT = true;
-    
+
     /*
      * Keybinding related config settings
      */

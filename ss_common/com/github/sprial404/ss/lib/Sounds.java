@@ -14,7 +14,7 @@ public class Sounds {
     private static final String SOUND_RESOURCE_LOCATION = "mods/ss/sound/";
     @SuppressWarnings("unused")
     private static final String SOUND_PREFIX = "mods.ss.sound.";
-    
-    public static String[] soundFiles = { };
-    
+
+    public static String[] soundFiles = {};
+
 }

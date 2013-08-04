@@ -18,16 +18,16 @@ public class Textures {
     public static final String ARMOR_SHEET_LOCATION = "/mods/ss/textures/armor/";
     public static final String GUI_SHEET_LOCATION = "/mods/ss/textures/gui/";
     public static final String EFFECTS_LOCATION = "/mods/ss/textures/effects/";
-    
+
     // Item/Block sprite sheets
     public static final ResourceLocation VANILLA_ITEM_TEXTURE_SHEET = TextureMap.field_110575_b;
     public static final ResourceLocation VANILLA_BLOCK_TEXTURE_SHEET = TextureMap.field_110576_c;
-    
+
     // Armor sprite sheets
-    
+
     // GUI textures
-    
+
     // Model textures
-    
+
     // Effect textures
 }

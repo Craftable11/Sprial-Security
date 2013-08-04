@@ -13,5 +13,6 @@ import net.minecraft.item.ItemStack;
  */
 public interface IKeyBound {
 
-    public abstract void doKeyBindingAction(EntityPlayer thePlayer, ItemStack itemStack, String keyBinding);
+    public abstract void doKeyBindingAction(EntityPlayer thePlayer,
+            ItemStack itemStack, String keyBinding);
 }

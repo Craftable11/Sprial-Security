@@ -12,7 +12,7 @@ public class Reference {
 
     /* Debug Mode On-Off */
     public static boolean DEBUG_MODE = false;
-    
+
     /* General Mod related constants */
     public static final String MOD_ID = "SS";
     public static final String MOD_NAME = "Sprial Security";
@@ -25,6 +25,6 @@ public class Reference {
     public static final String SERVER_PROXY_CLASS = "com.github.sprial404.ss.core.proxy.CommonProxy";
     public static final String CLIENT_PROXY_CLASS = "com.github.sprial404.ss.core.proxy.ClientProxy";
     public static final int VERSION_CHECK_ATTEMPTS = 3;
-    
+
     public static final int ORE_DICTIONARY_NOT_FOUND = -1;
 }

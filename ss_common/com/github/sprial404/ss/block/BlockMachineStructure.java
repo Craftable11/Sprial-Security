@@ -29,10 +29,11 @@ public class BlockMachineStructure extends Block {
         this.setResistance(20.0F);
         this.setStepSound(soundMetalFootstep);
     }
-    
+
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister iconRegister) {
-        iconRegister.registerIcon(Reference.MOD_ID.toLowerCase() + ":" + Strings.MACHINE_STRUCTURE_NAME);
+        iconRegister.registerIcon(Reference.MOD_ID.toLowerCase() + ":"
+                + Strings.MACHINE_STRUCTURE_NAME);
     }
 }

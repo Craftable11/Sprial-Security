@@ -17,7 +17,8 @@ import com.github.sprial404.ss.lib.Commands;
  */
 public class CommandVersion {
 
-    public static void processCommand(ICommandSender commandSender, String[] args) {
+    public static void processCommand(ICommandSender commandSender,
+            String[] args) {
 
         String subCommand;
 
@@ -26,20 +27,21 @@ public class CommandVersion {
 
             if (subCommand.toLowerCase().equals(Commands.COMMAND_VERSION)) {
                 processVersionCommand(commandSender);
-            }
-            else if (subCommand.toLowerCase().equals(Commands.COMMAND_CHANGELOG)) {
+            } else if (subCommand.toLowerCase().equals(
+                    Commands.COMMAND_CHANGELOG)) {
                 processChangelogCommand(commandSender);
-            }
-            else
-                throw new WrongUsageException(Commands.COMMAND_VERSION_USAGE, new Object[0]);
-        }
-        else
-            throw new WrongUsageException(Commands.COMMAND_VERSION_USAGE, new Object[0]);
+            } else
+                throw new WrongUsageException(Commands.COMMAND_VERSION_USAGE,
+                        new Object[0]);
+        } else
+            throw new WrongUsageException(Commands.COMMAND_VERSION_USAGE,
+                    new Object[0]);
     }
 
     private static void processVersionCommand(ICommandSender commandSender) {
 
-        commandSender.sendChatToPlayer(ChatMessageComponent.func_111077_e(VersionHelper.getResultMessage()));
+        commandSender.sendChatToPlayer(ChatMessageComponent
+                .func_111077_e(VersionHelper.getResultMessage()));
     }
 
     private static void processChangelogCommand(ICommandSender commandSender) {

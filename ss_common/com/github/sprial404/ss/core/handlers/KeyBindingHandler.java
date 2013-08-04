@@ -29,7 +29,8 @@ public class KeyBindingHandler extends KeyBindingRegistry.KeyHandler {
 
     public KeyBindingHandler() {
 
-        super(KeyBindingUtil.gatherKeyBindings(), KeyBindingUtil.gatherIsRepeating());
+        super(KeyBindingUtil.gatherKeyBindings(), KeyBindingUtil
+                .gatherIsRepeating());
     }
 
     @Override
@@ -39,7 +40,8 @@ public class KeyBindingHandler extends KeyBindingRegistry.KeyHandler {
     }
 
     @Override
-    public void keyDown(EnumSet<TickType> types, KeyBinding kb, boolean tickEnd, boolean isRepeat) {
+    public void keyDown(EnumSet<TickType> types, KeyBinding kb,
+            boolean tickEnd, boolean isRepeat) {
 
         // Only operate at the end of the tick
         if (tickEnd) {
@@ -47,15 +49,21 @@ public class KeyBindingHandler extends KeyBindingRegistry.KeyHandler {
             if (FMLClientHandler.instance().getClient().inGameHasFocus) {
                 EntityPlayer player = FMLClientHandler.instance().getClient().thePlayer;
                 if (player != null) {
-                    ItemStack currentItem = FMLClientHandler.instance().getClient().thePlayer.getCurrentEquippedItem();
+                    ItemStack currentItem = FMLClientHandler.instance()
+                            .getClient().thePlayer.getCurrentEquippedItem();
 
                     if (currentItem != null) {
                         if (currentItem.getItem() instanceof IKeyBound) {
-                            if (!KeyBindingUtil.isClientSided(kb.keyDescription)) {
-                                PacketDispatcher.sendPacketToServer(PacketTypeHandler.populatePacket(new PacketKeyPressed(kb.keyDescription)));
-                            }
-                            else {
-                                ((IKeyBound) currentItem.getItem()).doKeyBindingAction(player, currentItem, kb.keyDescription);
+                            if (!KeyBindingUtil
+                                    .isClientSided(kb.keyDescription)) {
+                                PacketDispatcher
+                                        .sendPacketToServer(PacketTypeHandler
+                                                .populatePacket(new PacketKeyPressed(
+                                                        kb.keyDescription)));
+                            } else {
+                                ((IKeyBound) currentItem.getItem())
+                                        .doKeyBindingAction(player,
+                                                currentItem, kb.keyDescription);
                             }
                         }
                     }

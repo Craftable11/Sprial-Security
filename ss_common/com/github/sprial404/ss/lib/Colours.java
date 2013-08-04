@@ -11,7 +11,7 @@ package com.github.sprial404.ss.lib;
 public class Colours {
 
     public static final String PURE_WHITE = "ffffff";
-    
+
     /* Text colour related constants */
     public static final String TEXT_COLOUR_PREFIX_YELLOW = "\u00a7e";
     public static final String TEXT_COLOUR_PREFIX_GRAY = "\u00a77";
@@ -22,4 +22,5 @@ public class Colours {
     public static final String TEXT_COLOUR_PREFIX_GREEN = "\u00a72";
     public static final String TEXT_COLOUR_PREFIX_CYAN = "\u00a7b";
     public static final String TEXT_COLOUR_PREFIX_MAGENTA = "\u00a75";
+    public static final String TEXT_COLOUR_PREFIX_RED = "\u00a74";
 }

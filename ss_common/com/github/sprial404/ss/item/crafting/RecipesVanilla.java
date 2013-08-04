@@ -39,7 +39,8 @@ public class RecipesVanilla {
 
         vanillaRecipes = HashMultimap.create();
 
-        for (Object recipeObject : CraftingManager.getInstance().getRecipeList()) {
+        for (Object recipeObject : CraftingManager.getInstance()
+                .getRecipeList()) {
 
             if (recipeObject instanceof IRecipe) {
 
@@ -47,8 +48,10 @@ public class RecipesVanilla {
                 ItemStack recipeOutput = recipe.getRecipeOutput();
 
                 if (recipeOutput != null) {
-                    ArrayList<CustomWrappedStack> recipeInputs = RecipeHelper.getRecipeInputs(recipe);
-                    vanillaRecipes.put(new CustomWrappedStack(recipeOutput), recipeInputs);
+                    ArrayList<CustomWrappedStack> recipeInputs = RecipeHelper
+                            .getRecipeInputs(recipe);
+                    vanillaRecipes.put(new CustomWrappedStack(recipeOutput),
+                            recipeInputs);
                 }
             }
         }

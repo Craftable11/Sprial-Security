@@ -49,9 +49,10 @@ public class RecipeRegistry {
 
         return recipeRegistry;
     }
-    
+
     private void init() {
-        Multimap<CustomWrappedStack, List<CustomWrappedStack>> recipes = HashMultimap.create();
+        Multimap<CustomWrappedStack, List<CustomWrappedStack>> recipes = HashMultimap
+                .create();
 
         // Add potion recipes
         recipes.putAll(RecipesPotions.getPotionRecipes());
@@ -65,47 +66,59 @@ public class RecipeRegistry {
         // Add recipes gathered via IMC
         // TODO Gather IMC recipes
 
-        // Populate the discovered stacks list with all stacks that we are involved in a recipe we are aware of 
+        // Populate the discovered stacks list with all stacks that we are
+        // involved in a recipe we are aware of
         discoverStacks(recipes);
-        
-        // Add items that have no recipe, using the list of discovered stacks to determine if it's in a recipe or not
+
+        // Add items that have no recipe, using the list of discovered stacks to
+        // determine if it's in a recipe or not
         for (CustomWrappedStack stack : recipelessStacks) {
             recipes.put(stack, new ArrayList<CustomWrappedStack>());
         }
 
         // Iterate through every recipe in the map, and add them to the registry
         Set<CustomWrappedStack> recipeKeySet = recipes.keySet();
-        Iterator<CustomWrappedStack> recipeKeySetIterator = recipeKeySet.iterator();
+        Iterator<CustomWrappedStack> recipeKeySetIterator = recipeKeySet
+                .iterator();
         CustomWrappedStack recipeOutput = null;
 
         while (recipeKeySetIterator.hasNext()) {
             recipeOutput = recipeKeySetIterator.next();
-            
-            for (List<CustomWrappedStack> recipeInputs : recipes.get(recipeOutput)) {
+
+            for (List<CustomWrappedStack> recipeInputs : recipes
+                    .get(recipeOutput)) {
                 addRecipe(recipeOutput, recipeInputs);
             }
         }
     }
-    
-    private void discoverStacks(Multimap<CustomWrappedStack, List<CustomWrappedStack>> recipes) {
+
+    private void discoverStacks(
+            Multimap<CustomWrappedStack, List<CustomWrappedStack>> recipes) {
         Set<CustomWrappedStack> recipeKeySet = recipes.keySet();
-        Iterator<CustomWrappedStack> recipeKeySetIterator = recipeKeySet.iterator();
+        Iterator<CustomWrappedStack> recipeKeySetIterator = recipeKeySet
+                .iterator();
         CustomWrappedStack recipeOutput = null;
-        
+
         // Discover all stacks involved in the recipes we know about
         while (recipeKeySetIterator.hasNext()) {
             recipeOutput = recipeKeySetIterator.next();
-            
-            if (!discoveredStacks.contains(new CustomWrappedStack(recipeOutput.getWrappedStack())) && recipeOutput.getWrappedStack() != null) {
-                discoveredStacks.add(new CustomWrappedStack(recipeOutput.getWrappedStack()));
+
+            if (!discoveredStacks.contains(new CustomWrappedStack(recipeOutput
+                    .getWrappedStack()))
+                    && recipeOutput.getWrappedStack() != null) {
+                discoveredStacks.add(new CustomWrappedStack(recipeOutput
+                        .getWrappedStack()));
             }
-            
-            for (List<CustomWrappedStack> recipeInputs : recipes.get(recipeOutput)) {
+
+            for (List<CustomWrappedStack> recipeInputs : recipes
+                    .get(recipeOutput)) {
                 for (CustomWrappedStack recipeInput : recipeInputs) {
-                    
-                    CustomWrappedStack unwrappedRecipeInput = new CustomWrappedStack(recipeInput.getWrappedStack());
-                    
-                    if (!discoveredStacks.contains(unwrappedRecipeInput) && recipeInput.getWrappedStack() != null) {
+
+                    CustomWrappedStack unwrappedRecipeInput = new CustomWrappedStack(
+                            recipeInput.getWrappedStack());
+
+                    if (!discoveredStacks.contains(unwrappedRecipeInput)
+                            && recipeInput.getWrappedStack() != null) {
                         discoveredStacks.add(unwrappedRecipeInput);
                     }
                 }
@@ -113,41 +126,43 @@ public class RecipeRegistry {
         }
 
         CustomWrappedStack customWrappedStack;
-        
+
         // Discover all stacks from the vanilla Items array
         for (int i = 0; i < Item.itemsList.length; i++) {
-            
+
             if (Item.itemsList[i] != null) {
-                
+
                 if (Item.itemsList[i].getHasSubtypes()) {
-                    
+
                     for (int meta = 0; meta < 16; meta++) {
-                        
-                        customWrappedStack = new CustomWrappedStack(new ItemStack(Item.itemsList[i].itemID, 1, meta));
-                        
+
+                        customWrappedStack = new CustomWrappedStack(
+                                new ItemStack(Item.itemsList[i].itemID, 1, meta));
+
                         if (!discoveredStacks.contains(customWrappedStack)) {
                             discoveredStacks.add(customWrappedStack);
                         }
                     }
-                }
-                else {
-                    
-                    customWrappedStack = new CustomWrappedStack(new ItemStack(Item.itemsList[i]));
-                    
+                } else {
+
+                    customWrappedStack = new CustomWrappedStack(new ItemStack(
+                            Item.itemsList[i]));
+
                     if (!discoveredStacks.contains(customWrappedStack)) {
                         discoveredStacks.add(customWrappedStack);
                     }
                 }
             }
         }
-        
+
         /*
-         * For every stack we have discovered, check to see if we know a recipe for it. If we don't
-         * and we haven't already added it to the recipeless stack list, add it to the recipeless stack
-         * list
+         * For every stack we have discovered, check to see if we know a recipe
+         * for it. If we don't and we haven't already added it to the recipeless
+         * stack list, add it to the recipeless stack list
          */
-        for (CustomWrappedStack discoveredStack : discoveredStacks) {   
-            if (recipes.get(discoveredStack).size() == 0 && !recipelessStacks.contains(discoveredStack)) {
+        for (CustomWrappedStack discoveredStack : discoveredStacks) {
+            if (recipes.get(discoveredStack).size() == 0
+                    && !recipelessStacks.contains(discoveredStack)) {
                 recipelessStacks.add(discoveredStack);
             }
         }
@@ -162,7 +177,8 @@ public class RecipeRegistry {
     }
 
     public int countRecipesFor(CustomWrappedStack customWrappedStack) {
-        Collection<List<CustomWrappedStack>> keys = recipeMap.get(customWrappedStack);
+        Collection<List<CustomWrappedStack>> keys = recipeMap
+                .get(customWrappedStack);
 
         return keys.size();
     }
@@ -171,11 +187,13 @@ public class RecipeRegistry {
         return countRecipesFor(new CustomWrappedStack(itemStack));
     }
 
-    public Collection<List<CustomWrappedStack>> getRecipesFor(CustomWrappedStack customWrappedStack) {
+    public Collection<List<CustomWrappedStack>> getRecipesFor(
+            CustomWrappedStack customWrappedStack) {
         return recipeMap.get(customWrappedStack);
     }
 
-    public Collection<List<CustomWrappedStack>> getRecipesFor(ItemStack itemStack) {
+    public Collection<List<CustomWrappedStack>> getRecipesFor(
+            ItemStack itemStack) {
         return getRecipesFor(new CustomWrappedStack(itemStack));
     }
 
@@ -197,13 +215,13 @@ public class RecipeRegistry {
 
             if (object instanceof ItemStack || object instanceof OreStack) {
                 wrappedInputStack = new CustomWrappedStack(object);
-            }
-            else if (object instanceof CustomWrappedStack) {
+            } else if (object instanceof CustomWrappedStack) {
                 wrappedInputStack = (CustomWrappedStack) object;
             }
 
             if (wildCardStacks.contains(wrappedInputStack)) {
-                Iterator<CustomWrappedStack> wildIter = wildCardStacks.iterator();
+                Iterator<CustomWrappedStack> wildIter = wildCardStacks
+                        .iterator();
                 while (wildIter.hasNext()) {
                     CustomWrappedStack wildCard = wildIter.next();
                     if (wildCard.equals(wrappedInputStack)) {
@@ -215,27 +233,46 @@ public class RecipeRegistry {
 
             if (collatedStacks.size() == 0) {
                 collatedStacks.add(wrappedInputStack);
-            }
-            else {
+            } else {
                 found = false;
 
                 for (int i = 0; i < collatedStacks.size(); i++) {
                     if (collatedStacks.get(i) != null) {
-                        if (wrappedInputStack.getWrappedStack() instanceof ItemStack && collatedStacks.get(i).getWrappedStack() instanceof ItemStack) {
-                            if (ItemUtil.compare((ItemStack) wrappedInputStack.getWrappedStack(), (ItemStack) collatedStacks.get(i).getWrappedStack())) {
-                                collatedStacks.get(i).setStackSize(collatedStacks.get(i).getStackSize() + wrappedInputStack.getStackSize());
+                        if (wrappedInputStack.getWrappedStack() instanceof ItemStack
+                                && collatedStacks.get(i).getWrappedStack() instanceof ItemStack) {
+                            if (ItemUtil.compare((ItemStack) wrappedInputStack
+                                    .getWrappedStack(),
+                                    (ItemStack) collatedStacks.get(i)
+                                            .getWrappedStack())) {
+                                collatedStacks.get(i).setStackSize(
+                                        collatedStacks.get(i).getStackSize()
+                                                + wrappedInputStack
+                                                        .getStackSize());
                                 found = true;
                             }
-                        }
-                        else if (wrappedInputStack.getWrappedStack() instanceof OreStack && collatedStacks.get(i).getWrappedStack() instanceof OreStack) {
-                            if (OreStack.compareStacks((OreStack) wrappedInputStack.getWrappedStack(), (OreStack) collatedStacks.get(i).getWrappedStack())) {
-                                collatedStacks.get(i).setStackSize(collatedStacks.get(i).getStackSize() + wrappedInputStack.getStackSize());
+                        } else if (wrappedInputStack.getWrappedStack() instanceof OreStack
+                                && collatedStacks.get(i).getWrappedStack() instanceof OreStack) {
+                            if (OreStack.compareStacks(
+                                    (OreStack) wrappedInputStack
+                                            .getWrappedStack(),
+                                    (OreStack) collatedStacks.get(i)
+                                            .getWrappedStack())) {
+                                collatedStacks.get(i).setStackSize(
+                                        collatedStacks.get(i).getStackSize()
+                                                + wrappedInputStack
+                                                        .getStackSize());
                                 found = true;
                             }
-                        }
-                        else if (wrappedInputStack.getWrappedStack() instanceof EnergyStack && collatedStacks.get(i).getWrappedStack() instanceof EnergyStack) {
-                            if (((EnergyStack) wrappedInputStack.getWrappedStack()).energyName.equalsIgnoreCase(((EnergyStack) collatedStacks.get(i).getWrappedStack()).energyName)) {
-                                collatedStacks.get(i).setStackSize(collatedStacks.get(i).getStackSize() + wrappedInputStack.getStackSize());
+                        } else if (wrappedInputStack.getWrappedStack() instanceof EnergyStack
+                                && collatedStacks.get(i).getWrappedStack() instanceof EnergyStack) {
+                            if (((EnergyStack) wrappedInputStack
+                                    .getWrappedStack()).energyName
+                                    .equalsIgnoreCase(((EnergyStack) collatedStacks
+                                            .get(i).getWrappedStack()).energyName)) {
+                                collatedStacks.get(i).setStackSize(
+                                        collatedStacks.get(i).getStackSize()
+                                                + wrappedInputStack
+                                                        .getStackSize());
                                 found = true;
                             }
                         }
@@ -263,28 +300,31 @@ public class RecipeRegistry {
 
         for (CustomWrappedStack key : recipeMap.keySet()) {
 
-            Collection<List<CustomWrappedStack>> recipeMappings = recipeMap.get(key);
+            Collection<List<CustomWrappedStack>> recipeMappings = recipeMap
+                    .get(key);
 
             for (List<CustomWrappedStack> recipeList : recipeMappings) {
-                stringBuilder.append(String.format("Recipe Output: %s, Recipe Input: %s\n", key.toString(), recipeList.toString()));
+                stringBuilder.append(String.format(
+                        "Recipe Output: %s, Recipe Input: %s\n",
+                        key.toString(), recipeList.toString()));
             }
         }
 
         return stringBuilder.toString();
     }
-    
+
     public Multimap<CustomWrappedStack, List<CustomWrappedStack>> getRecipeMappings() {
         return recipeMap;
     }
-    
+
     public List<CustomWrappedStack> getDiscoveredStacks() {
         return discoveredStacks;
     }
-    
+
     public List<CustomWrappedStack> getRecipelessStacks() {
         return recipelessStacks;
     }
-    
+
     public List<CustomWrappedStack> getWildCardStacks() {
         return wildCardStacks;
     }
