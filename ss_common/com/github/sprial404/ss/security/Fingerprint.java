@@ -5,54 +5,44 @@ import java.util.Random;
 import net.minecraft.nbt.NBTTagCompound;
 
 import com.github.sprial404.ss.configuration.ConfigurationSettings;
+import com.github.sprial404.ss.core.util.LogHelper;
 import com.github.sprial404.ss.lib.Strings;
 
-public final class Fingerprint {
+public class Fingerprint {
 
-    private Random rand = new Random();
+    private static final String CHARACTERS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     
-    private static final Character[] CHARACTERS = {
-      'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
-      'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
-      'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', 
-      '4', '5', '6', '7', '8', '9'
-    };
+    private static Random rand = new Random();
     
-    private String username;
     private String fingerprint;
     
-    public Fingerprint(String username) {
-        this.username = username;
-        this.fingerprint = generateFingerprint();
+    public Fingerprint() {
+        generateFingerprint();
+    }
+
+    private void generateFingerprint() {
+        for (int i = 0; i < ConfigurationSettings.FINGERPRINT_LENGTH; i++)
+            fingerprint += CHARACTERS.charAt(rand.nextInt(CHARACTERS.length()));
     }
     
-    private String generateFingerprint() {
-        StringBuilder builder = new StringBuilder(20);
+    public void writeFingerprintToNBT(NBTTagCompound nbtTagCompound) {
+        nbtTagCompound.setString(Strings.NBT_FINGERPRINT, fingerprint);
+    }
+    
+    public void readFingerprintFromNBT(NBTTagCompound nbtTagCompound) {
+        String fingerprint = nbtTagCompound.getString(Strings.NBT_FINGERPRINT);
         
-        for (int i = 1; i < ConfigurationSettings.FINGERPRINT_LENGTH; i++) {
-            builder.append(CHARACTERS[rand.nextInt(CHARACTERS.length)]);
+        if (fingerprint.length() == ConfigurationSettings.FINGERPRINT_LENGTH) {
+            this.fingerprint = fingerprint;
         }
         
-        return builder.toString();
-    }
-
-    public NBTTagCompound writeToNBT(NBTTagCompound par1NBTTagCompound) {
-        par1NBTTagCompound.setString(Strings.NBT_USERNAME, username);
-        par1NBTTagCompound.setString(Strings.NBT_FINGERPRINT, fingerprint);
+        LogHelper.warning("Tempered Fingerprint Found - INVAILD LENGTH");
+        LogHelper.warning("Creating a new Fingerprint");
         
-        return par1NBTTagCompound;
-    }
-
-    public void readFromNBT(NBTTagCompound par1NBTTagCompound) {
-        this.username = par1NBTTagCompound.getString(Strings.NBT_USERNAME);
-        this.fingerprint = par1NBTTagCompound.getString(Strings.NBT_FINGERPRINT);
-    }
-
-    public String getUsername() {
-        return username;
+        generateFingerprint();
     }
     
     public boolean verify(String fingerprint) {
-        return this.fingerprint.equals(fingerprint);
+        return this.fingerprint == fingerprint;
     }
 }
