@@ -33,7 +33,7 @@ public class BlockGemOre extends Block {
         this.setResistance(5.0F);
         this.setStepSound(soundStoneFootstep);
     }
-
+    
     @Override
     public int idDropped(int par1, Random rand, int par3) {
         return ItemIds.GEM;
@@ -51,19 +51,11 @@ public class BlockGemOre extends Block {
         }
 
         if (meta == 0)
-            return 2 + fortune < 1 ? 0 : rand.nextInt(3);
+            return fortune < 1 ? 2 : rand.nextInt(3);
         else if (meta == 1 || meta == 3 || meta == 6)
-            return 1 + fortune < 3 ? 0 : rand.nextInt(1);
-        else if (meta == 2)
-            return 1;
-        else if (meta == 4)
-            return 1;
+            return fortune < 3 ? 1 : rand.nextInt(2);
         else if (meta == 5)
-            return 2 + fortune < 2 ? 0 : rand.nextInt(2);
-        else if (meta == 7)
-            return 1;
-        else if (meta == 8)
-            return 1;
+            return fortune < 2 ? 2 : rand.nextInt(2);
         else
             return 1;
     }
@@ -83,8 +75,6 @@ public class BlockGemOre extends Block {
             xp = MathHelper.getRandomIntegerInRange(world.rand, 2, 3);
         } else if (meta == 1 | meta == 3) {
             xp = MathHelper.getRandomIntegerInRange(world.rand, 3, 5);
-        } else if (meta == 2) {
-            xp = 1;
         } else if (meta == 4) {
             xp = MathHelper.getRandomIntegerInRange(world.rand, 4, 6);
         } else if (meta == 5) {
@@ -93,8 +83,6 @@ public class BlockGemOre extends Block {
             xp = MathHelper.getRandomIntegerInRange(world.rand, 1, 4);
         } else if (meta == 7) {
             xp = MathHelper.getRandomIntegerInRange(world.rand, 2, 4);
-        } else if (meta == 8) {
-            xp = 1;
         } else {
             xp = 1;
         }
