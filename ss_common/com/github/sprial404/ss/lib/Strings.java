@@ -13,7 +13,7 @@ public class Strings {
     /* General keys */
     public static final String TRUE = "true";
     public static final String FALSE = "false";
-
+    
     /* Fingerprint check related constants */
     public static final String INVALID_FINGERPRINT_MESSAGE = "The copy of Sprial Security that you are running has been modified from the original, and unpredictable things may happen. Please consider re-downloading the original version of the mod.";
 
@@ -25,7 +25,7 @@ public class Strings {
     public static final String GENERAL_ERROR_MESSAGE = "version.general_error";
     public static final String FINAL_ERROR_MESSAGE = "version.final_error";
     public static final String MC_VERSION_NOT_FOUND = "version.mc_version_not_found";
-
+    
     /* NBT related constants */
     public static final String NBT_ITEM_DISPLAY = "display";
     public static final String NBT_ITEM_COLOR = "color";
