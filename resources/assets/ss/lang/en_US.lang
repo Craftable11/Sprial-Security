@@ -1,0 +1,24 @@
+# Item localizations
+
+# Block localizations
+
+# GUI localizations
+
+# Command localizations
+command.ss.particles.turned_on=Spral Security particles turned on
+command.ss.particles.turned_off=Spral Security particles turned off
+command.ss.sounds.set_to_all=Playing Spral Security sounds from all players
+command.ss.sounds.set_to_self=Playing Spral Security sounds from self only
+command.ss.sounds.turned_off=Playing Spral Security sounds disabled
+
+# Creative Tab localizations
+itemGroup.SS=Sprial Security
+
+# Version check localizations
+version.init_log_message=Initializing remote version check against remote version authority, located at
+version.uninitialized=Remote version check failed to initialize properly
+version.current=Currently using the most up to date version (@REMOTE_MOD_VERSION@) of Sprial Security for @MINECRAFT_VERSION@
+version.outdated=A new @MOD_NAME@ version exists (@REMOTE_MOD_VERSION@) for @MINECRAFT_VERSION@. Get it here: @MOD_UPDATE_LOCATION@
+version.general_error=Error while connecting to remote version authority file; trying again
+version.final_error=Version check stopping after three unsuccessful connection attempts
+version.mc_version_not_found=Unable to find a version of @MOD_NAME@ for @MINECRAFT_VERSION@ in the remote version authority
