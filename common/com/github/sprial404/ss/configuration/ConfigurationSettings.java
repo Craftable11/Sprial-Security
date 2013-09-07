@@ -26,13 +26,6 @@ public class ConfigurationSettings {
     public static final String LAST_DISCOVERED_VERSION_TYPE_DEFAULT = "";
 
     /*
-     * Fingerprint settings
-     */
-    public static int FINGERPRINT_LENGTH;
-    public static final String FINGERPRINT_LENGTH_CONFIGNAME = "fingerprint.length";
-    public static final int FINGERPRINT_LENGTH_DEFAULT = 20;
-
-    /*
      * Audio config settings
      */
     public static String ENABLE_SOUNDS;

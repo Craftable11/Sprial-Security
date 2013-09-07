@@ -66,13 +66,6 @@ public class ConfigurationHandler {
                     ConfigurationSettings.ENABLE_SOUNDS_CONFIGNAME,
                     ConfigurationSettings.ENABLE_SOUNDS_DEFAULT).getString();
 
-            /* Fingerprint configs */
-            ConfigurationSettings.FINGERPRINT_LENGTH = configuration.get(
-                    CATEGORY_FINGERPRINT,
-                    ConfigurationSettings.FINGERPRINT_LENGTH_CONFIGNAME,
-                    ConfigurationSettings.FINGERPRINT_LENGTH_DEFAULT).getInt(
-                    ConfigurationSettings.FINGERPRINT_LENGTH_DEFAULT);
-
             /* Block configs */
 
             /* Block property configs */
