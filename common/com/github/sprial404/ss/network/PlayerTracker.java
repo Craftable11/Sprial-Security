@@ -1,4 +1,4 @@
-package com.github.sprial404.ss.core.trackers;
+package com.github.sprial404.ss.network;
 
 import net.minecraft.entity.player.EntityPlayer;
 import cpw.mods.fml.common.IPlayerTracker;
